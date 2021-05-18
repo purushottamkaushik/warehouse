@@ -127,6 +127,7 @@ public class UomController {
         return "redirect:all";
     }
 
+    // For excel functionality
     @GetMapping("/excel")
     public ModelAndView exportExcel() {
         ModelAndView m =null;
