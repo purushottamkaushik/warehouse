@@ -1,0 +1,107 @@
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+        <div class="card-header text-center bg-dark text-white">
+            Shipment Type Register
+        </div>
+        <div class="card-body">
+
+            <form id="shipmentTypeRegisterForm" th:action="@{/st/save}" method="post">
+                <div class="row">
+                    <div class="col-4">
+                        <label for="shipmentMode">Shipment Mode </label>
+                    </div>
+                    <div class="col-4">
+                        <select id="shipmentMode" name="shipmentMode" class="form-control">
+                            <option value="">-SELECT-</option>
+                            <option value="AIR">AIR</option>
+                            <option value="TRUCK">TRUCK</option>
+                            <option value="SHIP">SHIP</option>
+                            <option value="TRAIN">TRAIN</option>
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <span id="shipmentModeError"></span>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <label for="shipmentCode">Shipment Code </label>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" name="shipmentCode" id="shipmentCode" class="form-control">
+                    </div>
+                    <div class="col-4">
+                        <span id="shipmentCodeError"></span>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <label>Enable Shipment</label>
+                    </div>
+                    <div class="col-4">
+                        <input type="radio" name="enableShipment" id="enableShipmentYes" value="YES"> YES
+                        <input type="radio" name="enableShipment" id="enableShipmentNo" value="YES"> No
+                    </div>
+                    <div class="col-4">
+                        <span id="enableShipmentError"></span>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <label>Shipment Grade </label>
+                    </div>
+                    <div class="col-4">
+                        <input type="radio" id="shipmentGradeA" name="shipmentGrade" value="A"> A
+                        <input type="radio" id="shipmentGradeB" name="shipmentGrade" value="B"> B
+                        <input type="radio" id="shipmentGradeC" name="shipmentGrade" value="C"> C
+                    </div>
+                    <div class="col-4">
+                        <span id="shipmentGradeError"></span>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <label for="description">Description</label>
+                    </div>
+                    <div class="col-4">
+                        <textarea id="description" name="description" class="form-control"></textarea>
+                    </div>
+                    <div class="col-4">
+                        <span id="descriptionError"></span>
+                    </div>
+
+                </div>
+
+                <input type="submit" value="Create Shipment Type" class="btn btn-success">
+
+            </form>
+
+        </div>
+
+        <div class="card-footer" th:if="${message!=null}">
+            Developed by me :)
+            <span th:text="${message}"></span>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" th:src="@{/myjs/shipmentType.js}">
+
+</script>
+
+</body>
+</html>

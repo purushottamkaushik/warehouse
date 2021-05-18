@@ -1,0 +1,50 @@
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+</head>
+<body>
+
+  <div class="container">
+    <div class="card">
+      <div class="card-header bg-info text-center text-black">
+          Uom Data Page
+      </div>
+
+      <div class="card-body">
+        <a th:href="@{/uom/excel}" class="btn btn-primary text-white">Export Excel</a>
+        <table class="table table-hover">
+          <tr>
+            <th>Id</th>
+            <th>Uom Type</th>
+            <th>Uom Model</th>
+            <th>Description</th>
+            <th>Operations</th>
+          </tr>
+          <tr th:each="ob:${list}">
+            <td th:text="${ob.uomId}"></td>
+            <td th:text="${ob.uomType}"></td>
+            <td th:text="${ob.uomModel}"></td>
+            <td th:text="${ob.description}"></td>
+            <td>
+              <a th:href="@{/uom/edit/(id=${ob.uomId})}" class="btn btn-warning">EDIT</a>
+              <a th:href="@{/uom/delete/(id=${ob.uomId})}" class="btn btn-danger">DELETE</a>
+            </td>
+          </tr>
+
+        </table>
+      </div>
+      <div class="card-footer" >
+        Developed by me :)
+        <div th:if="${message!=null}">
+          <span th:text="${message}"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
