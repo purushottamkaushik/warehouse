@@ -14,7 +14,8 @@ import javax.persistence.*;
 public class Uom {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "uom_gen")
+    @SequenceGenerator(name = "uom_gen",sequenceName = "uomseq_gen")
     @Column(name = "uom_id")
     private Integer uomId;
 

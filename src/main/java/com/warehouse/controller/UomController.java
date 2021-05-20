@@ -119,7 +119,7 @@ public class UomController {
             uomService.updateUom(uom);
             String message = "Uom with id " + uom.getUomId() + " updated Successfully";
             model.addAttribute("message",message);
-        } catch (Exception e ) {
+        } catch (UomNotFoundException e ) {
             LOG.error("Could not update : {} " ,e.getMessage());
             model.addAttribute("message",e.getMessage());
         }
@@ -127,7 +127,7 @@ public class UomController {
         return "redirect:all";
     }
 
-    // For excel functionalit
+    // For excel functionality
     @GetMapping("/excel")
     public ModelAndView exportExcel() {
         ModelAndView m =null;

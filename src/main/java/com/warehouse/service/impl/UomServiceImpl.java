@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UomServiceImpl implements IUomService {
@@ -24,12 +23,16 @@ public class UomServiceImpl implements IUomService {
 
     @Override
     public Uom getOneUom(Integer id) throws UomNotFoundException{
-      Optional<Uom> uom = repo.findById(id);
-      if (uom.isPresent()) {
-          return uom.get();
-      } else {
-          throw new UomNotFoundException("Uom with uomId"  + id + " not found");
-      }
+//      Optional<Uom> uom = repo.findById(id);
+//      if (uom.isPresent()) {
+//          return uom.get();
+//      } else {
+//          throw new UomNotFoundException("Uom with uomId"  + id + " not found");
+//      }
+
+        return repo.findById(id).orElseThrow(()->{
+            throw new UomNotFoundException("Uom With '" + id+ "' not found");
+        });
     }
 
     @Override

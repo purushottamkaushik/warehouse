@@ -15,6 +15,7 @@ import java.util.Map;
 public class UomExcelExport extends AbstractXlsxView {
     @Override
     protected void buildExcelDocument(Map<String, Object> map, Workbook workbook, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
+        httpServletResponse.addHeader("Content-Disposition","attachments;filename=Uom.xlsx");
         List<Uom> uom = (List<Uom>)map.get("list");
         Sheet sheet = workbook.createSheet();
         addHeader(sheet);

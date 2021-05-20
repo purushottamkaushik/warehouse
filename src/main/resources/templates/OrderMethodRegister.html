@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/fontawesome.min.css">
+
+</head>
+<body>
+
+    <div class="container">
+        <div class="card">
+            <div class="card-header bg-info text-center text-white">
+                Order method Register page
+            </div>
+            <div class="card-body">
+                <form th:action="@{/om/save}" method="post" id="orderMethodRegister">
+                    <div class="row">
+                        <div class="col-4">
+                            <label >Order Mode</label>
+                        </div>
+                        <div class="col-4">
+                            <input type="radio" name="orderMode" id="orderModeSale" value="Sale"> Sale
+                            <input type="radio" name="orderMode" id="orderModePurchase" value="Purchase"> Purchase
+                        </div>
+                        <div class="col-4">
+                                    <span id="orderModeError"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <label for="orderCode">Order Code</label>
+                        </div>
+                        <div class="col-4">
+                            <input type="text" name="orderCode" id="orderCode" class="form-control" >
+                        </div>
+                        <div class="col-4">
+                                    <span id="orderCodeError"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-4">
+                            <label >Order Type</label>
+                        </div>
+                        <div class="col-4">
+                            <select name="orderType" id="orderType" class="form-control">
+                                   <option value="">-SELECT-</option>
+                                   <option value="LIFO">LIFO</option>
+                                   <option value="FIFO">FIFO</option>
+                                   <option value="FCFO">FCFO</option>
+                                   <option value="FEFO">FEFO</option>
+                            </select>
+                        </div>
+                        <div class="col-4">
+                                    <span id="orderTypeError"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-4">
+                            <label >Order Accept</label>
+                        </div>
+                        <div class="col-4">
+
+                            <input type="checkbox" name="orderAccept" value="Multi-Model"> Multi-model
+                            <input type="checkbox" name="orderAccept" value="Accept Return"> Accept Return
+
+                        </div>
+                        <div class="col-4">
+                                    <span id="orderAcceptError"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-4">
+                            <label >Description</label>
+                        </div>
+                        <div class="col-4">
+                            <textarea name="description" id="description" rows="5" cols="20" class="form-control"></textarea>
+                        </div>
+                        <div class="col-4">
+                                    <span id="descriptionError"></span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-success">Register Order</button>
+
+                </form>
+
+            </div>
+            <div class="card-footer" th:if="${message!=null}">
+                <span th:text="${message}"></span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

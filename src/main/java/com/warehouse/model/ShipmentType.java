@@ -10,11 +10,12 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "shipment_type")
+@Table(name = "shipment_type_tab")
 public class ShipmentType {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "shipment_generator")
+    @SequenceGenerator(name = "shipment_generator",sequenceName = "shipmentSequence")
     @Column(name = "id")
     private Integer shipmentId;
 
