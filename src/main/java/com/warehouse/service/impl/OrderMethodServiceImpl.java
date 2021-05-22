@@ -27,7 +27,7 @@ public class OrderMethodServiceImpl implements IOrderMethodService {
 
     @Override
     public OrderMethod getOneOrderMethod(Integer id) throws OrderMethodNotFoundException {
-        return repo.findById(id).orElseThrow(()->{
+        return repo.findById(id).orElseThrow(() -> {
             throw new OrderMethodNotFoundException("Order method with '" + id + "' not found");
         });
     }
@@ -39,19 +39,19 @@ public class OrderMethodServiceImpl implements IOrderMethodService {
 
     @Override
     public void deleteOrderMethod(Integer id) {
-        if (id != null && getOneOrderMethod(id)!=null) {
+        if (id != null && getOneOrderMethod(id) != null) {
             repo.deleteById(id);
         }
     }
 
     @Override
     public boolean isOrderCodeExists(String orderCode) {
-        return repo.isOrderCodeExist(orderCode)>0;
+        return repo.isOrderCodeExist(orderCode) > 0;
     }
 
     @Override
     public boolean isOrderCodeExistsForEdit(String orderCode, Integer id) {
-        return repo.isOrderCodeExist(orderCode,id) > 0 ;
+        return repo.isOrderCodeExist(orderCode, id) > 0;
     }
 
     @Override

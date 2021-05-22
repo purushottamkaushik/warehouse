@@ -29,28 +29,28 @@ public class ShipmentTypeServiceImpl implements IShipmentTypeService {
     @Override
     public Boolean deleteShipType(Integer id) throws Exception {
         Optional<ShipmentType> shipmentType = repo.findById(id);
-        if (shipmentType.isPresent()){
+        if (shipmentType.isPresent()) {
             repo.deleteById(id);
             return true;
         } else {
-            throw new Exception("Shipment with shipment id "  + id + " doesnt exist" );
+            throw new Exception("Shipment with shipment id " + id + " doesnt exist");
         }
 
     }
 
     @Override
     public ShipmentType getOneShipmentType(Integer id) throws Exception {
-        Optional<ShipmentType> shipmentType=repo.findById(id);
+        Optional<ShipmentType> shipmentType = repo.findById(id);
         if (shipmentType.isPresent()) {
             return shipmentType.get();
-        } else{
+        } else {
             throw new Exception("Shipment with " + id + " doesnt exist ");
         }
     }
 
     @Override
     public Integer updateShipmentType(ShipmentType shipmentType) {
-        return  repo.save(shipmentType).getId();
+        return repo.save(shipmentType).getId();
     }
 
     @Override
@@ -58,7 +58,7 @@ public class ShipmentTypeServiceImpl implements IShipmentTypeService {
 
         try {
             return repo.checkShipmentCodeExist(code) > 0;
-        }catch (Exception e) {
+        } catch (Exception e) {
 
         }
         return null;
@@ -67,7 +67,7 @@ public class ShipmentTypeServiceImpl implements IShipmentTypeService {
     @Override
     public Boolean isShipmentCodeExists(String code, Integer id) {
         try {
-            return repo.checkShipmentCodeExist(code,id) > 0;
+            return repo.checkShipmentCodeExist(code, id) > 0;
         } catch (Exception e) {
             e.printStackTrace();
         }

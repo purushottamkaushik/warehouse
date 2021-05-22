@@ -1,21 +1,21 @@
 <html xmlns:th="https://www.thymeleaf.org/">
 
 <head>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <link rel="stylesheet"
-        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          rel="stylesheet"/>
 </head>
 <body>
 <div class="container">
-  <div class="card">
-    <div class="card-header">
-      Shipment Type Chart
+    <div class="card">
+        <div class="card-header">
+            Shipment Type Chart
+        </div>
+        <div class="card-body">
+            <img alt="Shipment mode pie chart not found " th:src="@{/shipmentModePie.jpeg}">
+            <img alt="Order Mode bar chart not found" th:src="@{/shipmentModeBarChart.jpeg}">
+        </div>
     </div>
-    <div class="card-body">
-      <img th:src="@{/shipmentModePie.jpeg}" alt="Shipment mode pie chart not found ">
-      <img th:src="@{/shipmentModeBarChart.jpeg}" alt="Order Mode bar chart not found">
-    </div>
-  </div>
 
 </div>
 </body>

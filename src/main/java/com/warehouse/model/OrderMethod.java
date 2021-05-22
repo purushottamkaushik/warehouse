@@ -16,8 +16,8 @@ public class OrderMethod {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO,generator = "order_method_gen")
-    @SequenceGenerator(name = "order_method_gen",sequenceName = "ordermethodsequence")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "order_method_gen")
+    @SequenceGenerator(name = "order_method_gen", sequenceName = "ordermethodsequence")
     private Integer id;
 
     @Column(name = "order_mode")

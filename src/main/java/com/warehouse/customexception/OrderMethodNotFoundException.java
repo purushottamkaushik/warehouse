@@ -1,6 +1,6 @@
 package com.warehouse.customexception;
 
-public class OrderMethodNotFoundException extends RuntimeException{
+public class OrderMethodNotFoundException extends RuntimeException {
 
     public OrderMethodNotFoundException() {
     }

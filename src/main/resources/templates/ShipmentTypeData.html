@@ -1,53 +1,53 @@
 <html xmlns:th="https://www.thymeleaf.org/">
 <head>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"/>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
 
 
 </head>
 <body>
 
-    <div class="container">
-        <div class="card">
-            <div class="card-header bg-info text-center ">
-                Shipment Type Data
-            </div>
-            <div class="card-body">
-                <a th:href="@{/st/excel}" class="btn btn-primary"><i class="fas fa-file-excel"></i>Excel Export</a>
-                <a th:href="@{/st/chart}" class="btn btn-primary"><i class="fas fa-chart-pie"></i>Chart</a>
-                <table class="table table-hover">
-                    <tr>
-                        <th>Id</th>
-                        <th>Shipment Mde</th>
-                        <th>Shipment Code</th>
-                        <th>Enabled</th>
-                        <th>Shipment  Grade</th>
-                        <th>Description</th>
-                        <th>Operations </th>
-                    </tr>
-                    <tr th:each="ob:${list}">
-                        <td th:text="${ob.id}"></td>
-                        <td th:text="${ob.shipmentMode}"></td>
-                        <td th:text="${ob.shipmentCode}"></td>
-                        <td th:text="${ob.enableShipment}"></td>
-                        <td th:text="${ob.shipmentGrade}"></td>
-                        <td th:text="${ob.description}"></td>
-                        <td>
-                            <a th:href="@{/st/edit(id=${ob.id})}" class="btn btn-warning">EDIT</a>
-                            <a th:href="@{/st/delete(id=${ob.id})}" class="btn btn-danger">DELETE</a>
-                        </td>
+<div class="container">
+    <div class="card">
+        <div class="card-header bg-info text-center ">
+            Shipment Type Data
+        </div>
+        <div class="card-body">
+            <a class="btn btn-primary" th:href="@{/st/excel}"><i class="fas fa-file-excel"></i>Excel Export</a>
+            <a class="btn btn-primary" th:href="@{/st/chart}"><i class="fas fa-chart-pie"></i>Chart</a>
+            <table class="table table-hover">
+                <tr>
+                    <th>Id</th>
+                    <th>Shipment Mde</th>
+                    <th>Shipment Code</th>
+                    <th>Enabled</th>
+                    <th>Shipment Grade</th>
+                    <th>Description</th>
+                    <th>Operations</th>
+                </tr>
+                <tr th:each="ob:${list}">
+                    <td th:text="${ob.id}"></td>
+                    <td th:text="${ob.shipmentMode}"></td>
+                    <td th:text="${ob.shipmentCode}"></td>
+                    <td th:text="${ob.enableShipment}"></td>
+                    <td th:text="${ob.shipmentGrade}"></td>
+                    <td th:text="${ob.description}"></td>
+                    <td>
+                        <a class="btn btn-warning" th:href="@{/st/edit(id=${ob.id})}">EDIT</a>
+                        <a class="btn btn-danger" th:href="@{/st/delete(id=${ob.id})}">DELETE</a>
+                    </td>
 
-                    </tr>
+                </tr>
 
-                </table>
-            </div>
-            <div class="card-footer" th:if="${message!=''}">
-                <span th:text="${message}"></span>
-            </div>
+            </table>
+        </div>
+        <div class="card-footer" th:if="${message!=''}">
+            <span th:text="${message}"></span>
         </div>
     </div>
+</div>
 
 </body>
 </html>

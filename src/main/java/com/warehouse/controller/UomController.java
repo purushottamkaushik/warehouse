@@ -1,8 +1,6 @@
 package com.warehouse.controller;
 
-import com.sun.jdi.event.ExceptionEvent;
 import com.warehouse.customexception.UomNotFoundException;
-import com.warehouse.model.ShipmentType;
 import com.warehouse.model.Uom;
 import com.warehouse.service.IUomService;
 import com.warehouse.util.UomUtil;
@@ -41,15 +39,15 @@ public class UomController {
 
     //2. Save Operation
     @PostMapping("/save")
-    public String saveUom(@ModelAttribute Uom uom , Model model) {
+    public String saveUom(@ModelAttribute Uom uom, Model model) {
         String message = "";
-        try{
+        try {
             LOG.info("Entered into UOM Save method");
             String id = uomService.saveUom(uom);
-            model.addAttribute("message","Uom having id " + id + " created");
+            model.addAttribute("message", "Uom having id " + id + " created");
             LOG.info("Exiting from UOM Save method");
         } catch (Exception e) {
-            LOG.error("Could not save : {}",e.getMessage());
+            LOG.error("Could not save : {}", e.getMessage());
             message = e.getMessage();
         }
         return "UomRegister";
@@ -63,10 +61,10 @@ public class UomController {
             LOG.info("Entered into getAllUoms method");
 
             List<Uom> uoms = uomService.getAllUoms();
-            model.addAttribute("list",uoms);
+            model.addAttribute("list", uoms);
             LOG.info("Exiting from getAllUoms method");
         } catch (Exception e) {
-            LOG.error("Could not fetch Uoms {}",e.getMessage());
+            LOG.error("Could not fetch Uoms {}", e.getMessage());
         }
         return "UomData";
 
@@ -74,39 +72,39 @@ public class UomController {
 
     private void fetchAllCommonUom(Model model) {
         List<Uom> list = uomService.getAllUoms();
-        model.addAttribute("list",list);
-        LOG.info("Fetched Uom Data with size {}" ,list==null?"0":list.size());
+        model.addAttribute("list", list);
+        LOG.info("Fetched Uom Data with size {}", list == null ? "0" : list.size());
 
     }
 
     // 4. Delete Uom
     @GetMapping("/delete")
-    public String deleteUom(@RequestParam Integer id,Model model) {
-        String message ="";
+    public String deleteUom(@RequestParam Integer id, Model model) {
+        String message = "";
         try {
             LOG.info("Entered into delete Uom Method");
             uomService.deleteUom(id);
             message = "Uom with id " + id + " deleted successfully";
-            model.addAttribute("message",message);
+            model.addAttribute("message", message);
             fetchAllCommonUom(model);
             LOG.info("Exiting delete Uom Method");
         } catch (Exception e) {
-            LOG.error("Could not delete : {}" , e.getMessage());
-            model.addAttribute("message",e.getMessage());
+            LOG.error("Could not delete : {}", e.getMessage());
+            model.addAttribute("message", e.getMessage());
         }
         return "UomData";
     }
 
     // 5. Edit Operation
     @GetMapping("/edit")
-    public String editUom(@RequestParam Integer id,Model model) {
+    public String editUom(@RequestParam Integer id, Model model) {
         try {
             LOG.info("Entered into edit Uom method");
             Uom uom = uomService.getOneUom(id);
-            model.addAttribute("uomObject",uom);
+            model.addAttribute("uomObject", uom);
             LOG.info("Exit from edit Uom method");
-        }catch (UomNotFoundException ex) {
-            LOG.error("Could not edit : {}" ,ex.getMessage());
+        } catch (UomNotFoundException ex) {
+            LOG.error("Could not edit : {}", ex.getMessage());
             ex.printStackTrace();
         }
         return "UomEdit";
@@ -114,36 +112,36 @@ public class UomController {
 
     @GetMapping("/validate")
     @ResponseBody
-    public String validateUom(@RequestParam String uomModel, @RequestParam Integer uomId,  Model model) {
-        String message ="";
+    public String validateUom(@RequestParam String uomModel, @RequestParam Integer uomId, Model model) {
+        String message = "";
         try {
             LOG.info("Entered into validate Uom Method ");
-            if(uomId == 0 && uomService.isUomModelExist(uomModel)) {
+            if (uomId == 0 && uomService.isUomModelExist(uomModel)) {
                 message = "Uom model " + uomModel + " already exists";
             }
-            if (uomId !=0 && uomService.isUomModelExistForEdit(uomModel,uomId)) {
+            if (uomId != 0 && uomService.isUomModelExistForEdit(uomModel, uomId)) {
                 message = "Uom model " + uomModel + " already exists";
             }
-            LOG.debug("Message = {} ",message);
+            LOG.debug("Message = {} ", message);
             LOG.info("Exit from validate Uom Method ");
-        }catch (Exception ex) {
-            LOG.error("Could not Update : {}" ,ex.getMessage());
+        } catch (Exception ex) {
+            LOG.error("Could not Update : {}", ex.getMessage());
             ex.printStackTrace();
         }
         return message;
     }
 
     @PostMapping("/update")
-    public String updateUom(@ModelAttribute Uom uom ,Model model) {
+    public String updateUom(@ModelAttribute Uom uom, Model model) {
         try {
             LOG.info("Entered into Update Uom method");
             uomService.updateUom(uom);
             String message = "Uom with id " + uom.getId() + " updated Successfully";
-            model.addAttribute("message",message);
+            model.addAttribute("message", message);
             LOG.info("Exiting from Update Uom method");
-        } catch (UomNotFoundException e ) {
-            LOG.error("Could not update : {} " ,e.getMessage());
-            model.addAttribute("message",e.getMessage());
+        } catch (UomNotFoundException e) {
+            LOG.error("Could not update : {} ", e.getMessage());
+            model.addAttribute("message", e.getMessage());
         }
         fetchAllCommonUom(model);
         return "redirect:all";
@@ -152,35 +150,34 @@ public class UomController {
     // For excel functionality
     @GetMapping("/excel")
     public ModelAndView exportExcel() {
-        ModelAndView m =null;
+        ModelAndView m = null;
         try {
             LOG.info("Entered into export excel method ");
             m = new ModelAndView();
             m.setView(new UomExcelExport());
             List<Uom> list = uomService.getAllUoms();
-            m.addObject("list",list);
+            m.addObject("list", list);
             LOG.info("Exiting from export excel method ");
         } catch (Exception e) {
-            LOG.error("Could not export excel :  {}" ,e.getMessage());
+            LOG.error("Could not export excel :  {}", e.getMessage());
         }
         return m;
     }
 
     @GetMapping("/chart")
-    public String getUomTypeChart(){
-        try{
+    public String getUomTypeChart() {
+        try {
             LOG.info("Entered into UomTypeChart method");
             List<Object[]> uomTypeCount = uomService.getUomTypeCount();
             String path = context.getRealPath("/");
-            util.generatePieChart(path,uomTypeCount);
-            util.generateBarChart(path,uomTypeCount);
+            util.generatePieChart(path, uomTypeCount);
+            util.generateBarChart(path, uomTypeCount);
             LOG.info("Entered into UomTypeChart method");
         } catch (Exception e) {
-            LOG.error("Could not generate chart : {} " , e.getMessage());
+            LOG.error("Could not generate chart : {} ", e.getMessage());
         }
         return "UomChart";
     }
-
 
 
 }

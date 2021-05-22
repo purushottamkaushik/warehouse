@@ -36,22 +36,21 @@ $(document).ready(function () {
             $("#shipmentCodeError").html("<b>Please Enter shipment Mode</b>");
             $("#shipmentCodeError").css('color', 'red');
             shipmentCodeError = false;
-        } else if(!exp.test(val)) {
+        } else if (!exp.test(val)) {
             $("#shipmentCodeError").show();
             $("#shipmentCodeError").html("<b>Shipment code must 4-8 chars</b>");
             $("#shipmentCodeError").css('color', 'red');
             shipmentCodeError = false;
-        }
-        else {
-            var  id = 0; // Register case
+        } else {
+            var id = 0; // Register case
             if ($("#id").val() != undefined) {
                 id = $("#id").val();
             }
             $.ajax({
-                url :'validate',
-                data : {'code':val ,"id":id},
-                success : function (response) {
-                    if (response!='') {
+                url: 'validate',
+                data: {'code': val, "id": id},
+                success: function (response) {
+                    if (response != '') {
                         $("#shipmentCodeError").show();
                         $("#shipmentCodeError").html(response);
                         $("#shipmentCodeError").css('color', 'red');

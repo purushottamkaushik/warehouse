@@ -15,7 +15,7 @@ public class Uom {
 
     @Id
     @GeneratedValue(generator = "uom_gen")
-    @SequenceGenerator(name = "uom_gen",sequenceName = "uomseq_gen")
+    @SequenceGenerator(name = "uom_gen", sequenceName = "uomseq_gen")
     @Column(name = "uom_id")
     private Integer id;
 

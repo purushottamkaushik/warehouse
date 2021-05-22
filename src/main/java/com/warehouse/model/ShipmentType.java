@@ -15,14 +15,14 @@ public class ShipmentType {
 
     @Id
     @GeneratedValue(generator = "shipment_generator")
-    @SequenceGenerator(name = "shipment_generator",sequenceName = "shipmentSequence")
+    @SequenceGenerator(name = "shipment_generator", sequenceName = "shipmentSequence")
     @Column(name = "id")
     private Integer id;
 
     @Column(name = "shipment_mode")
     private String shipmentMode;
 
-    @Column(name = "shipment_code", unique = true )
+    @Column(name = "shipment_code", unique = true)
     private String shipmentCode;
 
     @Column(name = "shipment_enabled")

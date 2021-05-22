@@ -12,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-
 import javax.servlet.ServletContext;
 import java.util.List;
 
@@ -23,7 +22,7 @@ public class OrderMethodController {
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderMethodController.class);
 
     @Autowired
-   private ServletContext context;
+    private ServletContext context;
 
     @Autowired
     private OrderMethodUtil util;
@@ -42,91 +41,91 @@ public class OrderMethodController {
         try {
             LOGGER.info("Entered into save order method");
             Integer id = service.saveOrderMethod(orderMethod);
-            model.addAttribute("message" ,"Order with id'" + id +" 'created Success");
+            model.addAttribute("message", "Order with id'" + id + " 'created Success");
             LOGGER.debug("Exit save order method");
-        } catch (Exception e ) {
-            LOGGER.info("Could not save order method {} " ,e.getMessage());
-            model.addAttribute("message",e.getMessage());
+        } catch (Exception e) {
+            LOGGER.info("Could not save order method {} ", e.getMessage());
+            model.addAttribute("message", e.getMessage());
         }
         return "OrderMethodRegister";
     }
 
     @GetMapping("/all")
-    public String getAllOrder(Model model){
+    public String getAllOrder(Model model) {
 
-        try{
+        try {
             LOGGER.info("Entered into get All method");
             List<OrderMethod> list = service.getAllOrderMethod();
-            model.addAttribute("list",list);
-            model.addAttribute("message",list==null?"No Data Found":"Found data with size" + list.size());
+            model.addAttribute("list", list);
+            model.addAttribute("message", list == null ? "No Data Found" : "Found data with size" + list.size());
 
             LOGGER.info("About to leave getAll method");
         } catch (Exception e) {
-            LOGGER.info("Could not get Orders : {}" , e.getMessage());
-            model.addAttribute("message","Could not fetch data please check  application logs");
+            LOGGER.info("Could not get Orders : {}", e.getMessage());
+            model.addAttribute("message", "Could not fetch data please check  application logs");
         }
         return "OrderMethodData";
     }
 
     @GetMapping("/edit")
-    public String editOrderMethod(@RequestParam Integer id,Model model){
-        try{
+    public String editOrderMethod(@RequestParam Integer id, Model model) {
+        try {
             LOGGER.info("Enter into edit method");
             OrderMethod om = service.getOneOrderMethod(id);
-            model.addAttribute("orderMethodObject",om);
+            model.addAttribute("orderMethodObject", om);
             LOGGER.info("Exit from edit method");
         } catch (Exception e) {
-            LOGGER.error("Could not execute EDIT Method {}" , e.getMessage());
+            LOGGER.error("Could not execute EDIT Method {}", e.getMessage());
         }
         return "OrderMethodEdit";
     }
 
     private void fetchCommonData(Model model) {
         List<OrderMethod> om = service.getAllOrderMethod();
-        model.addAttribute("list",om);
+        model.addAttribute("list", om);
     }
 
     @PostMapping("/update")
-    public String updateOrderMethod(@ModelAttribute OrderMethod om,Model model){
-        try{
+    public String updateOrderMethod(@ModelAttribute OrderMethod om, Model model) {
+        try {
             LOGGER.info("Enter into update Order method");
             service.updateOrderMethod(om);
             fetchCommonData(model);
-            model.addAttribute("message","Order method with id '" +om.getId()+ "' Updated Successfully");
+            model.addAttribute("message", "Order method with id '" + om.getId() + "' Updated Successfully");
             LOGGER.info("Exit from edit method");
         } catch (Exception e) {
-            LOGGER.error("Could not execute EDIT Method {}" , e.getMessage());
+            LOGGER.error("Could not execute EDIT Method {}", e.getMessage());
 
         }
         return "OrderMethodData";
     }
 
     @GetMapping("/delete")
-    public String deleteOrderMethod(@RequestParam Integer id,Model model){
-        try{
+    public String deleteOrderMethod(@RequestParam Integer id, Model model) {
+        try {
             LOGGER.info("Enter into delete Order method");
             service.deleteOrderMethod(id);
             fetchCommonData(model);
-            model.addAttribute("message","Order method with id '" +id+ "' Deleted Successfully");
+            model.addAttribute("message", "Order method with id '" + id + "' Deleted Successfully");
             LOGGER.info("Exit from edit method");
         } catch (Exception e) {
-            LOGGER.error("Could not execute EDIT Method {}" , e.getMessage());
-            model.addAttribute("message","Order method with '" +id+ "' not found");
+            LOGGER.error("Could not execute EDIT Method {}", e.getMessage());
+            model.addAttribute("message", "Order method with '" + id + "' not found");
         }
         return "OrderMethodData";
     }
 
     @GetMapping("/excel")
-    public ModelAndView generateExcel(){
+    public ModelAndView generateExcel() {
         ModelAndView m = null;
         try {
             m = new ModelAndView();
             m.setView(new OrderMethodExcelView());
 
             List<OrderMethod> list = service.getAllOrderMethod();
-            m.addObject("list",list);
+            m.addObject("list", list);
         } catch (Exception e) {
-            LOGGER.error("Could not generate excel : {}" ,e.getMessage());
+            LOGGER.error("Could not generate excel : {}", e.getMessage());
 
         }
         return m;
@@ -134,14 +133,14 @@ public class OrderMethodController {
 
     @GetMapping("/chart")
     public String generateCharts() {
-        try{
+        try {
             List<Object[]> list = service.getOrderModeCount();
             String path = context.getRealPath("/"); // root folder
-            util.generatePieChart(list,path);
-            util.generateBarChart(list,path);
+            util.generatePieChart(list, path);
+            util.generateBarChart(list, path);
 
         } catch (Exception e) {
-            LOGGER.error("Could not generate chart {} : ", e.getMessage() );
+            LOGGER.error("Could not generate chart {} : ", e.getMessage());
 
         }
         return "OrderMethodChart";

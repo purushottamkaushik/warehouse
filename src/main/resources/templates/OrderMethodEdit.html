@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"/>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
 
 </head>
 <body>
@@ -17,13 +17,13 @@
             Order method Update
         </div>
         <div class="card-body">
-            <form th:action="@{/om/update}" method="post" id="orderMethodUpdate" th:object="${orderMethodObject}">
+            <form id="orderMethodUpdate" method="post" th:action="@{/om/update}" th:object="${orderMethodObject}">
                 <div class="row">
                     <div class="col-4">
-                        <label >Order Id</label>
+                        <label>Order Id</label>
                     </div>
                     <div class="col-4">
-                        <input type="text" th:field="*{id}" class="form-control" readonly>
+                        <input class="form-control" readonly th:field="*{id}" type="text">
                     </div>
                     <div class="col-4">
 
@@ -31,11 +31,11 @@
                 </div>
                 <div class="row">
                     <div class="col-4">
-                        <label >Order Mode</label>
+                        <label>Order Mode</label>
                     </div>
                     <div class="col-4">
-                        <input type="radio" th:field="*{orderMode}" value="Sale"> Sale
-                        <input type="radio" th:field="*{orderMode}" value="Purchase"> Purchase
+                        <input th:field="*{orderMode}" type="radio" value="Sale"> Sale
+                        <input th:field="*{orderMode}" type="radio" value="Purchase"> Purchase
                     </div>
                     <div class="col-4">
                         <span id="orderModeError"></span>
@@ -43,10 +43,10 @@
                 </div>
                 <div class="row">
                     <div class="col-4">
-                        <label >Order Code</label>
+                        <label>Order Code</label>
                     </div>
                     <div class="col-4">
-                        <input type="text" th:field="*{orderCode}" class="form-control" >
+                        <input class="form-control" th:field="*{orderCode}" type="text">
                     </div>
                     <div class="col-4">
                         <span id="orderCodeError"></span>
@@ -55,10 +55,10 @@
 
                 <div class="row">
                     <div class="col-4">
-                        <label >Order Type</label>
+                        <label>Order Type</label>
                     </div>
                     <div class="col-4">
-                        <select th:field="*{orderType}" class="form-control">
+                        <select class="form-control" th:field="*{orderType}">
                             <option value="">-SELECT-</option>
                             <option value="LIFO">LIFO</option>
                             <option value="FIFO">FIFO</option>
@@ -74,12 +74,12 @@
 
                 <div class="row">
                     <div class="col-4">
-                        <label >Order Accept</label>
+                        <label>Order Accept</label>
                     </div>
                     <div class="col-4">
 
-                        <input type="checkbox" th:field="*{orderAccept}" value="Multi-Model"> Multi-model
-                        <input type="checkbox" th:field="*{orderAccept}" value="Accept Return"> Accept Return
+                        <input th:field="*{orderAccept}" type="checkbox" value="Multi-Model"> Multi-model
+                        <input th:field="*{orderAccept}" type="checkbox" value="Accept Return"> Accept Return
 
                     </div>
                     <div class="col-4">
@@ -89,24 +89,24 @@
 
                 <div class="row">
                     <div class="col-4">
-                        <label >Description</label>
+                        <label>Description</label>
                     </div>
                     <div class="col-4">
-                        <textarea th:field="*{description}" rows="5" cols="20" class="form-control"></textarea>
+                        <textarea class="form-control" cols="20" rows="5" th:field="*{description}"></textarea>
                     </div>
                     <div class="col-4">
                         <span id="descriptionError"></span>
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-success">Update Order</button>
+                <button class="btn btn-success" type="submit">Update Order</button>
 
             </form>
 
         </div>
-<!--        <div class="card-footer" th:if="${message!=null}">-->
-<!--            <span th:text="${message}"></span>-->
-<!--        </div>-->
+        <!--        <div class="card-footer" th:if="${message!=null}">-->
+        <!--            <span th:text="${message}"></span>-->
+        <!--        </div>-->
     </div>
 </div>
 </body>

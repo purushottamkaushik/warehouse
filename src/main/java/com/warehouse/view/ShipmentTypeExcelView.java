@@ -18,29 +18,30 @@ public class ShipmentTypeExcelView extends AbstractXlsxView {
     @Override
     protected void buildExcelDocument(Map<String, Object> map, Workbook workbook, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
 
-        httpServletResponse.addHeader("Content-Disposition","attachments;filename=Shipments.xlsx");
-        List<ShipmentType> data = (List<ShipmentType>)map.get("list");
+        httpServletResponse.addHeader("Content-Disposition", "attachments;filename=Shipments.xlsx");
+        List<ShipmentType> data = (List<ShipmentType>) map.get("list");
 
         Sheet sheet = workbook.createSheet();
         addHeader(sheet);
-        addBody(sheet , data);
+        addBody(sheet, data);
     }
 
     private void addHeader(Sheet sheet) {
 
-       Row row =  sheet.createRow(0);
-       row.createCell(0).setCellValue("ID");
-       row.createCell(1).setCellValue("MODE");
-       row.createCell(2).setCellValue("CODE");
-       row.createCell(3).setCellValue("ENABLED");
-       row.createCell(4).setCellValue("GRADE");
-       row.createCell(4).setCellValue("DESCRIPTION");
+        Row row = sheet.createRow(0);
+        row.createCell(0).setCellValue("ID");
+        row.createCell(1).setCellValue("MODE");
+        row.createCell(2).setCellValue("CODE");
+        row.createCell(3).setCellValue("ENABLED");
+        row.createCell(4).setCellValue("GRADE");
+        row.createCell(4).setCellValue("DESCRIPTION");
 
     }
-    private void addBody(Sheet sheet , List<ShipmentType> data) {
+
+    private void addBody(Sheet sheet, List<ShipmentType> data) {
         int rowIndex = 1;
         for (ShipmentType shipmentType : data) {
-            Row row = sheet.createRow(rowIndex++) ; // I
+            Row row = sheet.createRow(rowIndex++); // I
             row.createCell(0).setCellValue(shipmentType.getId());
             row.createCell(1).setCellValue(shipmentType.getShipmentMode());
             row.createCell(2).setCellValue(shipmentType.getShipmentCode());

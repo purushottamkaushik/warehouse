@@ -7,7 +7,7 @@ import java.util.List;
 public interface IShipmentTypeService {
     Integer saveShipmentType(ShipmentType shipmentType);
 
-    List<ShipmentType> getAllShipmentType() ;
+    List<ShipmentType> getAllShipmentType();
 
     Boolean deleteShipType(Integer id) throws Exception;
 
@@ -17,7 +17,7 @@ public interface IShipmentTypeService {
 
     Boolean isShipmentCodeExists(String code);
 
-Boolean isShipmentCodeExists(String code,Integer id);
+    Boolean isShipmentCodeExists(String code, Integer id);
 
 
     List<Object[]> getShipmentModeAndCount();

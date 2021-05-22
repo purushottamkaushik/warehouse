@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface IOrderMethodService {
 
-    Integer saveOrderMethod(OrderMethod orderMethod) throws OrderMethodNotFoundException,Exception;
+    Integer saveOrderMethod(OrderMethod orderMethod) throws OrderMethodNotFoundException, Exception;
 
     void updateOrderMethod(OrderMethod orderMethod);
 

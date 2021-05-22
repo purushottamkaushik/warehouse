@@ -17,13 +17,13 @@ public class UomUtil {
     public void generatePieChart(String path, List<Object[]> uomTypeCount) {
         DefaultPieDataset dataset = new DefaultPieDataset();
         for (Object[] ob : uomTypeCount) {
-            dataset.setValue(ob[0].toString(),Double.parseDouble(ob[1].toString()));
+            dataset.setValue(ob[0].toString(), Double.parseDouble(ob[1].toString()));
         }
 
         JFreeChart chart =
-        ChartFactory.createPieChart("Uom Type Pie Chart",dataset);
+                ChartFactory.createPieChart("Uom Type Pie Chart", dataset);
         try {
-            ChartUtils.saveChartAsJPEG(new File(path+"uomTypePieChart.jpeg"),chart ,300,300);
+            ChartUtils.saveChartAsJPEG(new File(path + "uomTypePieChart.jpeg"), chart, 300, 300);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -33,12 +33,12 @@ public class UomUtil {
 
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         for (Object[] ob : uomTypeCount) {
-            dataset.setValue(Double.parseDouble(ob[1].toString()),ob[0].toString(),"");
+            dataset.setValue(Double.parseDouble(ob[1].toString()), ob[0].toString(), "");
         }
         JFreeChart chart =
-        ChartFactory.createBarChart("Uom Type Bar Chart","","",dataset);
+                ChartFactory.createBarChart("Uom Type Bar Chart", "", "", dataset);
         try {
-            ChartUtils.saveChartAsJPEG(new File(path+"uomTypeBarChart.jpeg"),chart ,300,300);
+            ChartUtils.saveChartAsJPEG(new File(path + "uomTypeBarChart.jpeg"), chart, 300, 300);
         } catch (IOException e) {
             e.printStackTrace();
         }

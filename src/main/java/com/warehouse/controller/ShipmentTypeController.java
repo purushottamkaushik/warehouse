@@ -137,7 +137,7 @@ public class ShipmentTypeController {
             if (id != 0 && service.isShipmentCodeExists(code, id)) {
                 message = "Shipment Code " + code + " already exists";
             }
-            LOG.debug("Message  {} ",message );
+            LOG.debug("Message  {} ", message);
             LOG.info("Exit from validate Shipment Code method");
 
         } catch (Exception e) {
@@ -161,17 +161,18 @@ public class ShipmentTypeController {
         }
         return m;
     }
+
     @GetMapping("/chart")
     public String getShipmentModeChart() {
         try {
             LOG.info("Entered into Shipment Chart method");
             List<Object[]> shipmentTypeModeAndCount = service.getShipmentModeAndCount();
             String path = context.getRealPath("/");
-            util.generatePieChart(path,shipmentTypeModeAndCount);
-            util.generateBarChart(path,shipmentTypeModeAndCount);
+            util.generatePieChart(path, shipmentTypeModeAndCount);
+            util.generateBarChart(path, shipmentTypeModeAndCount);
             LOG.info("About to leave Shipment Chart method");
-        } catch (Exception e ) {
-            LOG.error("Could not generate chart : {} ",e.getMessage() );
+        } catch (Exception e) {
+            LOG.error("Could not generate chart : {} ", e.getMessage());
             e.printStackTrace();
         }
         return "ShipmentTypeChart";

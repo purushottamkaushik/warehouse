@@ -1,9 +1,9 @@
 <html xmlns:th="https://www.thymeleaf.org/">
 <head>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"/>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
 
 
 </head>
@@ -16,13 +16,13 @@
         </div>
         <div class="card-body">
 
-            <form id="shipmentTypeRegisterForm" th:action="@{/st/save}" method="post">
+            <form id="shipmentTypeRegisterForm" method="post" th:action="@{/st/save}">
                 <div class="row">
                     <div class="col-4">
                         <label for="shipmentMode">Shipment Mode </label>
                     </div>
                     <div class="col-4">
-                        <select id="shipmentMode" name="shipmentMode" class="form-control">
+                        <select class="form-control" id="shipmentMode" name="shipmentMode">
                             <option value="">-SELECT-</option>
                             <option value="AIR">AIR</option>
                             <option value="TRUCK">TRUCK</option>
@@ -40,7 +40,7 @@
                         <label for="shipmentCode">Shipment Code </label>
                     </div>
                     <div class="col-4">
-                        <input type="text" name="shipmentCode" id="shipmentCode" class="form-control">
+                        <input class="form-control" id="shipmentCode" name="shipmentCode" type="text">
                     </div>
                     <div class="col-4">
                         <span id="shipmentCodeError"></span>
@@ -52,8 +52,8 @@
                         <label>Enable Shipment</label>
                     </div>
                     <div class="col-4">
-                        <input type="radio" name="enableShipment" id="enableShipmentYes" value="YES"> YES
-                        <input type="radio" name="enableShipment" id="enableShipmentNo" value="YES"> No
+                        <input id="enableShipmentYes" name="enableShipment" type="radio" value="YES"> YES
+                        <input id="enableShipmentNo" name="enableShipment" type="radio" value="YES"> No
                     </div>
                     <div class="col-4">
                         <span id="enableShipmentError"></span>
@@ -65,9 +65,9 @@
                         <label>Shipment Grade </label>
                     </div>
                     <div class="col-4">
-                        <input type="radio" id="shipmentGradeA" name="shipmentGrade" value="A"> A
-                        <input type="radio" id="shipmentGradeB" name="shipmentGrade" value="B"> B
-                        <input type="radio" id="shipmentGradeC" name="shipmentGrade" value="C"> C
+                        <input id="shipmentGradeA" name="shipmentGrade" type="radio" value="A"> A
+                        <input id="shipmentGradeB" name="shipmentGrade" type="radio" value="B"> B
+                        <input id="shipmentGradeC" name="shipmentGrade" type="radio" value="C"> C
                     </div>
                     <div class="col-4">
                         <span id="shipmentGradeError"></span>
@@ -79,7 +79,7 @@
                         <label for="description">Description</label>
                     </div>
                     <div class="col-4">
-                        <textarea id="description" name="description" class="form-control"></textarea>
+                        <textarea class="form-control" id="description" name="description"></textarea>
                     </div>
                     <div class="col-4">
                         <span id="descriptionError"></span>
@@ -87,7 +87,7 @@
 
                 </div>
 
-                <button type="submit" class="btn btn-success"><i class="fas fa-plus" ></i>Create Shipment Type</button>
+                <button class="btn btn-success" type="submit"><i class="fas fa-plus"></i>Create Shipment Type</button>
             </form>
 
         </div>
@@ -99,7 +99,7 @@
     </div>
 </div>
 
-<script type="text/javascript" th:src="@{/myjs/shipmentType.js}">
+<script th:src="@{/myjs/shipmentType.js}" type="text/javascript">
 
 </script>
 

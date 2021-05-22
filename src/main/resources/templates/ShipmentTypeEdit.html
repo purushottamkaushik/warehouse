@@ -1,9 +1,9 @@
 <html xmlns:th="https://www.thymeleaf.org/">
 <head>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"/>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
 
 
 </head>
@@ -15,13 +15,13 @@
             Shipment Type Edit
         </div>
         <div class="card-body">
-            <form th:action="@{/st/update}" method="post" th:object="${shipmentTypeData}">
+            <form method="post" th:action="@{/st/update}" th:object="${shipmentTypeData}">
                 <div class="row">
                     <div class="col-4">
                         <label>Shipment Id </label>
                     </div>
                     <div class="col-4">
-                        <input type="text" th:field="*{id}" class="form-control" readonly>
+                        <input class="form-control" readonly th:field="*{id}" type="text">
                     </div>
                     <div class="col-4">
                     </div>
@@ -31,7 +31,7 @@
                         <label>Shipment Mode </label>
                     </div>
                     <div class="col-4">
-                        <select th:field="*{shipmentMode}" class="form-control">
+                        <select class="form-control" th:field="*{shipmentMode}">
                             <option value="">-SELECT-</option>
                             <option value="AIR">AIR</option>
                             <option value="TRUCK">TRUCK</option>
@@ -49,7 +49,7 @@
                         <label>Shipment Code </label>
                     </div>
                     <div class="col-4">
-                        <input type="text" th:field="*{shipmentCode}" class="form-control">
+                        <input class="form-control" th:field="*{shipmentCode}" type="text">
                     </div>
                     <div class="col-4">
                         <span id="shipmentCodeError"></span>
@@ -61,8 +61,8 @@
                         <label>Enable Shipment</label>
                     </div>
                     <div class="col-4">
-                        <input type="radio" th:field="*{enableShipment}" value="YES"> YES
-                        <input type="radio" th:field="*{enableShipment}" value="YES"> No
+                        <input th:field="*{enableShipment}" type="radio" value="YES"> YES
+                        <input th:field="*{enableShipment}" type="radio" value="YES"> No
                     </div>
                     <div class="col-4">
                         <span id="enableShipmentError"></span>
@@ -74,9 +74,9 @@
                         <label>Shipment Grade </label>
                     </div>
                     <div class="col-4">
-                        <input type="radio" th:field="*{shipmentGrade}" value="A"> A
-                        <input type="radio" th:field="*{shipmentGrade}" value="B"> B
-                        <input type="radio" th:field="*{shipmentGrade}" value="C"> C
+                        <input th:field="*{shipmentGrade}" type="radio" value="A"> A
+                        <input th:field="*{shipmentGrade}" type="radio" value="B"> B
+                        <input th:field="*{shipmentGrade}" type="radio" value="C"> C
                     </div>
                     <div class="col-4">
                         <span id="shipmentGradeError"></span>
@@ -88,7 +88,7 @@
                         <label>Description</label>
                     </div>
                     <div class="col-4">
-                        <textarea th:field="*{description}" class="form-control"></textarea>
+                        <textarea class="form-control" th:field="*{description}"></textarea>
                     </div>
                     <div class="col-4">
                         <span id="descriptionError"></span>
@@ -96,7 +96,7 @@
 
                 </div>
 
-                <input type="submit" value="Update Shipment Type" class="btn btn-success">
+                <input class="btn btn-success" type="submit" value="Update Shipment Type">
 
             </form>
 
@@ -108,7 +108,7 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" th:src="@{/myjs/shipmentType.js}">
+<script th:src="@{/myjs/shipmentType.js}" type="text/javascript">
 </script>
 
 
