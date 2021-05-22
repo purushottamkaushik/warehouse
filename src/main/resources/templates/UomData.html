@@ -32,8 +32,8 @@
                     <td th:text="${ob.uomModel}"></td>
                     <td th:text="${ob.description}"></td>
                     <td>
-                        <a class="btn btn-warning" th:href="@{/uom/edit/(id=${ob.id})}">EDIT</a>
-                        <a class="btn btn-danger" th:href="@{/uom/delete/(id=${ob.id})}">DELETE</a>
+                        <a class="btn btn-warning" th:href="@{/uom/edit(id=${ob.id})}">EDIT</a>
+                        <a class="btn btn-danger" th:href="@{/uom/delete(id=${ob.id})}">DELETE</a>
                     </td>
                 </tr>
 

@@ -15,7 +15,7 @@
             Shipment Type Edit
         </div>
         <div class="card-body">
-            <form method="post" th:action="@{/st/update}" th:object="${shipmentTypeData}">
+            <form id="shipmentTypeRegisterForm" method="post" th:action="@{/st/update}" th:object="${shipmentTypeData}">
                 <div class="row">
                     <div class="col-4">
                         <label>Shipment Id </label>

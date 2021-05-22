@@ -4,6 +4,7 @@ import com.warehouse.model.ShipmentType;
 import com.warehouse.service.IShipmentTypeService;
 import com.warehouse.util.ShipmentTypeUtil;
 import com.warehouse.view.ShipmentTypeExcelView;
+import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -117,10 +118,10 @@ public class ShipmentTypeController {
             model.addAttribute("message", message);
             fetchAllShipmentTypes(model);
 
-        } catch (Exception e) {
+        } catch (ConstraintViolationException e) {
             LOG.error("Could not update due to {}", e.getMessage());
-            message = "Update Operation Failed check application logs for more details";
-            model.addAttribute("message", message);
+//            message = "Update Operation Failed check application logs for more details";
+//            model.addAttribute("message", e.getMessage());
         }
         return "redirect:all";
     }
@@ -129,6 +130,7 @@ public class ShipmentTypeController {
     @ResponseBody
     public String validateShipmentCode(@RequestParam String code, @RequestParam Integer id) {
         String message = "";
+        System.out.println("Code is  " + code);
         try {
             LOG.info("Entered into validate Shipment Code method");
             if (id == 0 && service.isShipmentCodeExists(code)) {

@@ -15,7 +15,7 @@ public interface OrderMethodRepo extends JpaRepository<OrderMethod, Integer> {
     Integer isOrderCodeExist(String orderCode);
 
     // For Edit Operation
-    @Query("SELECT count(orderCode) FROM OrderMethod WHERE orderCode<>:orderCode and id<>:id")
+    @Query("SELECT count(orderCode) FROM OrderMethod WHERE orderCode=:orderCode and id<>:id")
     Integer isOrderCodeExist(String orderCode, Integer id);
 
     // For chart

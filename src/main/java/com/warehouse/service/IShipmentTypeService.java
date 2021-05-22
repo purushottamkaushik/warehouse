@@ -15,7 +15,7 @@ public interface IShipmentTypeService {
 
     Integer updateShipmentType(ShipmentType shipmentType);
 
-    Boolean isShipmentCodeExists(String code);
+    Boolean isShipmentCodeExists(String code) throws Exception;
 
     Boolean isShipmentCodeExists(String code, Integer id);
 

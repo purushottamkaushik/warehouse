@@ -23,7 +23,7 @@ public class OrderMethod {
     @Column(name = "order_mode")
     private String orderMode;
 
-    @Column(name = "order_code")
+    @Column(name = "order_code", unique = true)
     private String orderCode;
 
     @Column(name = "order_type")

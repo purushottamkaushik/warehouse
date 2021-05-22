@@ -50,7 +50,7 @@ public class OrderMethodServiceImpl implements IOrderMethodService {
     }
 
     @Override
-    public boolean isOrderCodeExistsForEdit(String orderCode, Integer id) {
+    public boolean isOrderCodeExists(String orderCode, Integer id) {
         return repo.isOrderCodeExist(orderCode, id) > 0;
     }
 

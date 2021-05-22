@@ -56,12 +56,7 @@ public class ShipmentTypeServiceImpl implements IShipmentTypeService {
     @Override
     public Boolean isShipmentCodeExists(String code) {
 
-        try {
-            return repo.checkShipmentCodeExist(code) > 0;
-        } catch (Exception e) {
-
-        }
-        return null;
+        return repo.checkShipmentCodeExist(code) > 0;
     }
 
     @Override

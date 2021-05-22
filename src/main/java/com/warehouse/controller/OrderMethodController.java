@@ -146,4 +146,22 @@ public class OrderMethodController {
         return "OrderMethodChart";
     }
 
+    @GetMapping("/validate")
+    @ResponseBody
+    public String validateOrderMethodCode(@RequestParam Integer id, @RequestParam String code) {
+        String message = "";
+        try {
+            if (id == 0 && service.isOrderCodeExists(code)) {
+                message = "Order method with order code'" + code + "' already exists";
+            }
+            if (id != 0 && service.isOrderCodeExists(code, id)) {
+                message = "Order method with order code'" + code + "' already exists";
+
+            }
+        } catch (Exception e) {
+            LOGGER.error("Could not validate Order method code {}", e.getMessage());
+        }
+        return message;
+    }
+
 }

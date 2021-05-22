@@ -37,8 +37,8 @@
                     <td th:text="${ob.orderAccept}"></td>
                     <td th:text="${ob.description}"></td>
                     <td>
-                        <a class="btn btn-warning" th:href="@{/om/edit/(id=${ob.id})}">EDIT</a>
-                        <a class="btn btn-danger" th:href="@{/om/delete/(id=${ob.id})}">DELETE</a>
+                        <a class="btn btn-warning" th:href="@{/om/edit(id=${ob.id})}">EDIT</a>
+                        <a class="btn btn-danger" th:href="@{/om/delete(id=${ob.id})}">DELETE</a>
                     </td>
                 </tr>
 

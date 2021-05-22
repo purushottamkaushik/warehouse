@@ -17,7 +17,7 @@
             Order method Update
         </div>
         <div class="card-body">
-            <form id="orderMethodUpdate" method="post" th:action="@{/om/update}" th:object="${orderMethodObject}">
+            <form id="orderMethodRegisterForm" method="post" th:action="@{/om/update}" th:object="${orderMethodObject}">
                 <div class="row">
                     <div class="col-4">
                         <label>Order Id</label>
@@ -109,5 +109,6 @@
         <!--        </div>-->
     </div>
 </div>
+<script th:src="@{/myjs/om.js}"></script>
 </body>
 </html>

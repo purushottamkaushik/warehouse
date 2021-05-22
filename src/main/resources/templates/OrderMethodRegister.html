@@ -17,7 +17,7 @@
             Order method Register page
         </div>
         <div class="card-body">
-            <form id="orderMethodRegister" method="post" th:action="@{/om/save}">
+            <form id="orderMethodRegisterForm" method="post" th:action="@{/om/save}">
                 <div class="row">
                     <div class="col-4">
                         <label>Order Mode</label>
@@ -99,5 +99,6 @@
         </div>
     </div>
 </div>
+<script th:src="@{/myjs/om.js}"></script>
 </body>
 </html>
