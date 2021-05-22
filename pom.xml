@@ -31,8 +31,16 @@
             <artifactId>poi-ooxml</artifactId>
             <version>3.17</version>
         </dependency>
+
         <!--  Dependencies for excel export END-->
 
+        <!-- Dependency for chart generation       -->
+        <dependency>
+            <groupId>org.jfree</groupId>
+            <artifactId>jfreechart</artifactId>
+            <version>1.5.0</version>
+        </dependency>
+<!--  Chart gen dependency end       -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -63,6 +71,8 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/javax.servlet/servlet-api -->
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -20,4 +20,6 @@ public interface IUomService {
     boolean isUomModelExist(String uomModel);
 
     boolean isUomModelExistForEdit(String uomModel, Integer id);
+
+    List<Object[]> getUomTypeCount();
 }

@@ -28,7 +28,7 @@ public class OrderMethodExcelView extends AbstractXlsxView {
          int rowIndex = 1;
          for (OrderMethod om : list) {
              Row row = sheet.createRow(rowIndex++);
-             row.createCell(0).setCellValue(om.getOrderMethodId());
+             row.createCell(0).setCellValue(om.getId());
              row.createCell(1).setCellValue(om.getOrderMode());
              row.createCell(2).setCellValue(om.getOrderCode());
              row.createCell(3).setCellValue(om.getOrderType());

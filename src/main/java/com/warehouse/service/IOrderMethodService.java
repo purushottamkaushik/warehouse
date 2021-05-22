@@ -5,7 +5,7 @@ import com.warehouse.model.OrderMethod;
 
 import java.util.List;
 
-public interface OrderMethodService {
+public interface IOrderMethodService {
 
     Integer saveOrderMethod(OrderMethod orderMethod) throws OrderMethodNotFoundException,Exception;
 
@@ -20,5 +20,7 @@ public interface OrderMethodService {
     boolean isOrderCodeExists(String orderCode);
 
     boolean isOrderCodeExistsForEdit(String orderCode, Integer id);
+
+    List<Object[]> getOrderModeCount();
 
 }

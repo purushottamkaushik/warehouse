@@ -1,7 +1,8 @@
 package com.warehouse.controller;
 
 import com.warehouse.model.OrderMethod;
-import com.warehouse.service.OrderMethodService;
+import com.warehouse.service.IOrderMethodService;
+import com.warehouse.util.OrderMethodUtil;
 import com.warehouse.view.OrderMethodExcelView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,8 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.thymeleaf.model.IModel;
 
+
+import javax.servlet.ServletContext;
 import java.util.List;
 
 @Controller
@@ -21,7 +23,13 @@ public class OrderMethodController {
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderMethodController.class);
 
     @Autowired
-    private OrderMethodService service; // HAS-A Relation
+   private ServletContext context;
+
+    @Autowired
+    private OrderMethodUtil util;
+
+    @Autowired
+    private IOrderMethodService service; // HAS-A Relation
 
     @GetMapping("/register")
     public String showRegisterPage() {
@@ -84,7 +92,7 @@ public class OrderMethodController {
             LOGGER.info("Enter into update Order method");
             service.updateOrderMethod(om);
             fetchCommonData(model);
-            model.addAttribute("message","Order method with id '" +om.getOrderMethodId()+ "' Updated Successfully");
+            model.addAttribute("message","Order method with id '" +om.getId()+ "' Updated Successfully");
             LOGGER.info("Exit from edit method");
         } catch (Exception e) {
             LOGGER.error("Could not execute EDIT Method {}" , e.getMessage());
@@ -122,6 +130,21 @@ public class OrderMethodController {
 
         }
         return m;
+    }
+
+    @GetMapping("/chart")
+    public String generateCharts() {
+        try{
+            List<Object[]> list = service.getOrderModeCount();
+            String path = context.getRealPath("/"); // root folder
+            util.generatePieChart(list,path);
+            util.generateBarChart(list,path);
+
+        } catch (Exception e) {
+            LOGGER.error("Could not generate chart {} : ", e.getMessage() );
+
+        }
+        return "OrderMethodChart";
     }
 
 }

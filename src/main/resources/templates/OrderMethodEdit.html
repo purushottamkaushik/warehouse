@@ -5,7 +5,8 @@
     <title>Title</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/fontawesome.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
 </head>
 <body>
@@ -22,7 +23,7 @@
                         <label >Order Id</label>
                     </div>
                     <div class="col-4">
-                        <input type="text" th:field="*{orderMethodId}" class="form-control" readonly>
+                        <input type="text" th:field="*{id}" class="form-control" readonly>
                     </div>
                     <div class="col-4">
 
@@ -103,9 +104,9 @@
             </form>
 
         </div>
-        <div class="card-footer" th:if="${message!=null}">
-            <span th:text="${message}"></span>
-        </div>
+<!--        <div class="card-footer" th:if="${message!=null}">-->
+<!--            <span th:text="${message}"></span>-->
+<!--        </div>-->
     </div>
 </div>
 </body>

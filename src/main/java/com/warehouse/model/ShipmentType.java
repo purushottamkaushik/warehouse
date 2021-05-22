@@ -17,12 +17,12 @@ public class ShipmentType {
     @GeneratedValue(generator = "shipment_generator")
     @SequenceGenerator(name = "shipment_generator",sequenceName = "shipmentSequence")
     @Column(name = "id")
-    private Integer shipmentId;
+    private Integer id;
 
     @Column(name = "shipment_mode")
     private String shipmentMode;
 
-    @Column(name = "shipment_code")
+    @Column(name = "shipment_code", unique = true )
     private String shipmentCode;
 
     @Column(name = "shipment_enabled")

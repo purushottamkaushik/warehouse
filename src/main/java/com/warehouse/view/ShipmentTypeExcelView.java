@@ -41,7 +41,7 @@ public class ShipmentTypeExcelView extends AbstractXlsxView {
         int rowIndex = 1;
         for (ShipmentType shipmentType : data) {
             Row row = sheet.createRow(rowIndex++) ; // I
-            row.createCell(0).setCellValue(shipmentType.getShipmentId());
+            row.createCell(0).setCellValue(shipmentType.getId());
             row.createCell(1).setCellValue(shipmentType.getShipmentMode());
             row.createCell(2).setCellValue(shipmentType.getShipmentCode());
             row.createCell(3).setCellValue(shipmentType.getEnableShipment());

@@ -2,6 +2,7 @@ package com.warehouse.controller;
 
 import com.warehouse.model.ShipmentType;
 import com.warehouse.service.IShipmentTypeService;
+import com.warehouse.util.ShipmentTypeUtil;
 import com.warehouse.view.ShipmentTypeExcelView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.ServletContext;
 import java.util.List;
 
 @Controller
@@ -21,6 +23,12 @@ public class ShipmentTypeController {
 
     @Autowired
     private IShipmentTypeService service;
+
+    @Autowired
+    private ShipmentTypeUtil util;
+
+    @Autowired
+    private ServletContext context;
 
     // 1. Show Register Page
     @GetMapping("/register")
@@ -65,6 +73,7 @@ public class ShipmentTypeController {
             LOG.info("Entered into editShipmentType method");
             ShipmentType shipmentType = service.getOneShipmentType(id);
             model.addAttribute("shipmentTypeData", shipmentType);
+            LOG.info("Exit from editShipmentType method");
         } catch (Exception e) {
             LOG.error("{}", e.getMessage());
         }
@@ -121,12 +130,16 @@ public class ShipmentTypeController {
     public String validateShipmentCode(@RequestParam String code, @RequestParam Integer id) {
         String message = "";
         try {
+            LOG.info("Entered into validate Shipment Code method");
             if (id == 0 && service.isShipmentCodeExists(code)) {
                 message = "Shipment Code " + code + " already exists";
             }
             if (id != 0 && service.isShipmentCodeExists(code, id)) {
                 message = "Shipment Code " + code + " already exists";
             }
+            LOG.debug("Message  {} ",message );
+            LOG.info("Exit from validate Shipment Code method");
+
         } catch (Exception e) {
             LOG.error("Could not validate : {0}", e.getMessage());
         }
@@ -136,9 +149,9 @@ public class ShipmentTypeController {
 
     @GetMapping("/excel")
     public ModelAndView exportExcel() {
-        ModelAndView m=null;
+        ModelAndView m = null;
         try {
-            m= new ModelAndView();
+            m = new ModelAndView();
             m.setView(new ShipmentTypeExcelView());
             List<ShipmentType> list = service.getAllShipmentType();
             m.addObject("list", list);
@@ -147,7 +160,21 @@ public class ShipmentTypeController {
             e.printStackTrace();
         }
         return m;
-
+    }
+    @GetMapping("/chart")
+    public String getShipmentModeChart() {
+        try {
+            LOG.info("Entered into Shipment Chart method");
+            List<Object[]> shipmentTypeModeAndCount = service.getShipmentModeAndCount();
+            String path = context.getRealPath("/");
+            util.generatePieChart(path,shipmentTypeModeAndCount);
+            util.generateBarChart(path,shipmentTypeModeAndCount);
+            LOG.info("About to leave Shipment Chart method");
+        } catch (Exception e ) {
+            LOG.error("Could not generate chart : {} ",e.getMessage() );
+            e.printStackTrace();
+        }
+        return "ShipmentTypeChart";
     }
 
 }

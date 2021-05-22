@@ -18,7 +18,7 @@ public class ShipmentTypeServiceImpl implements IShipmentTypeService {
     @Override
     public Integer saveShipmentType(ShipmentType shipmentType) {
         ShipmentType shipmentType1 = repo.save(shipmentType);
-        return shipmentType1.getShipmentId();
+        return shipmentType1.getId();
     }
 
     @Override
@@ -28,7 +28,7 @@ public class ShipmentTypeServiceImpl implements IShipmentTypeService {
 
     @Override
     public Boolean deleteShipType(Integer id) throws Exception {
-        Optional<ShipmentType> shipmentType = repo.findById(id );
+        Optional<ShipmentType> shipmentType = repo.findById(id);
         if (shipmentType.isPresent()){
             repo.deleteById(id);
             return true;
@@ -50,7 +50,7 @@ public class ShipmentTypeServiceImpl implements IShipmentTypeService {
 
     @Override
     public Integer updateShipmentType(ShipmentType shipmentType) {
-        return  repo.save(shipmentType).getShipmentId();
+        return  repo.save(shipmentType).getId();
     }
 
     @Override
@@ -72,5 +72,10 @@ public class ShipmentTypeServiceImpl implements IShipmentTypeService {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public List<Object[]> getShipmentModeAndCount() {
+        return repo.getShipmentModeAndCount();
     }
 }

@@ -18,7 +18,7 @@ public class UomServiceImpl implements IUomService {
     @Override
     public String saveUom(Uom uom) {
        Uom uom1 = repo.save(uom);
-       return uom1.getUomId().toString();
+       return uom1.getId().toString();
     }
 
     @Override
@@ -60,6 +60,10 @@ public class UomServiceImpl implements IUomService {
         return repo.getUomModelCountForEdit(uomModel, id)>0;
     }
 
+    @Override
+    public List<Object[]> getUomTypeCount() {
+        return repo.getUomTypeAndCount();
+    }
 
 
 }

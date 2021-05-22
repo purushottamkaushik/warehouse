@@ -17,7 +17,7 @@ public class Uom {
     @GeneratedValue(generator = "uom_gen")
     @SequenceGenerator(name = "uom_gen",sequenceName = "uomseq_gen")
     @Column(name = "uom_id")
-    private Integer uomId;
+    private Integer id;
 
     @Column(name = "uom_type")
     private String uomType;

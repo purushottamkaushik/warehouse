@@ -11,6 +11,7 @@
 
 <div class="container">
     <a th:href="@{/om/excel} "class="btn btn-primary"> Excel Export </a>
+    <a th:href="@{/om/chart}" class="btn btn-primary"> Chart</a>
     <div class="card">
         <div class="card-header bg-dark text-center text-white">
             Order Method Data Page
@@ -28,15 +29,15 @@
                 </tr>
 
                 <tr th:each="ob:${list}">
-                    <td th:text="${ob.orderMethodId}"></td>
+                    <td th:text="${ob.id}"></td>
                     <td th:text="${ob.orderMode}"></td>
                     <td th:text="${ob.orderCode}"></td>
                     <td th:text="${ob.orderType}"></td>
                     <td th:text="${ob.orderAccept}"></td>
                     <td th:text="${ob.description}"></td>
                     <td>
-                        <a th:href="@{/om/edit/(id=${ob.orderMethodId})}" class="btn btn-warning">EDIT</a>
-                        <a th:href="@{/om/delete/(id=${ob.orderMethodId})}" class="btn btn-danger">DELETE</a>
+                        <a th:href="@{/om/edit/(id=${ob.id})}" class="btn btn-warning">EDIT</a>
+                        <a th:href="@{/om/delete/(id=${ob.id})}" class="btn btn-danger">DELETE</a>
                     </td>
                 </tr>
 

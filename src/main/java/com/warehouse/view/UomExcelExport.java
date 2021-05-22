@@ -34,7 +34,7 @@ public class UomExcelExport extends AbstractXlsxView {
         int rowIndex=1;
         for(Uom uom : data) {
             Row row = sheet.createRow(rowIndex++);
-            row.createCell(0).setCellValue(uom.getUomId());
+            row.createCell(0).setCellValue(uom.getId());
             row.createCell(1).setCellValue(uom.getUomType());
             row.createCell(2).setCellValue(uom.getUomModel());
             row.createCell(3).setCellValue(uom.getDescription());
