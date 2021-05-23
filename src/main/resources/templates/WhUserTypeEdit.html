@@ -1,0 +1,152 @@
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+    <style>
+        .col-xs-12 {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <div class="card">
+        <div class="card-header text-center bg-dark text-white">
+            WareHouse User Register Page
+        </div>
+        <div class="card-body">
+
+            <form id="whUserTypeRegisterForm" method="post" th:action="@{/wh/update}" th:object="${whUserTypeObject}">
+                <!--                ROW 1 -->
+                <div class="row col-xs-12">
+                    <div class="col-3">
+                        <label>Id</label>
+                    </div>
+                    <div class="col-4">
+                        <input class="form-control" readonly th:field="*{id}" type="text">
+                    </div>
+                    <div class="col-5">
+                    </div>
+                </div>
+                <div class="row col-xs-12">
+                    <div class="col-3">
+                        <label>User Type</label>
+                    </div>
+                    <div class="col-4">
+                        <input th:field="*{userType}" type="radio" value="Vendor"> Vendor
+                        <input th:field="*{userType}" type="radio" value="Customer"> Customer
+                    </div>
+                    <div class="col-5">
+                        <span id="userTypeError"></span>
+                    </div>
+                </div>
+                <!--                ROW 2 -->
+                <div class="row col-xs-12">
+                    <div class="col-3">
+                        <label>User Code</label>
+                    </div>
+                    <div class="col-4">
+                        <input class="form-control" th:field="*{userCode}" type="text">
+                    </div>
+                    <div class="col-5">
+                        <span id="userCodeError"></span>
+                    </div>
+                </div>
+                <!--                ROW 3 -->
+                <div class="row col-xs-12">
+                    <div class="col-3">
+                        <label> User For</label>
+                    </div>
+                    <div class="col-4">
+                        <input class="form-control" readonly th:field="*{userFor}" type="text">
+                    </div>
+                    <div class="col-5">
+                        <span id="userForError"></span>
+                    </div>
+                </div>
+                <!--                ROW 4 -->
+                <div class="row col-xs-12">
+                    <div class="col-3">
+                        <label>User Email</label>
+                    </div>
+                    <div class="col-4">
+                        <input class="form-control" th:field="*{userEmail}" type="email">
+                    </div>
+                    <div class="col-5">
+                        <span id="userEmailError"></span>
+                    </div>
+                </div>
+                <!--                ROW 5 -->
+                <div class="row col-xs-12">
+                    <div class="col-3">
+                        <label>User Contact</label>
+                    </div>
+                    <div class="col-4">
+                        <input class="form-control" th:field="*{userContact}" type="text">
+
+                    </div>
+                    <div class="col-5">
+                        <span id="userContactError"></span>
+                    </div>
+                </div>
+                <!--                ROW 6 -->
+                <div class="row col-xs-12">
+                    <div class="col-3">
+                        <label>User ID Type </label>
+                    </div>
+                    <div class="col-4">
+                        <select class="form-control" th:field="*{userIdType} ">
+                            <option value="">-SELECT-</option>
+                            <option value="PAN CARD">PAN CARD</option>
+                            <option value="AADHAR CARD">AADHAR CARD</option>
+                            <option value="VOTER ID">VOTER ID</option>
+                            <option value="OTHER">OTHER</option>
+                        </select>
+                    </div>
+                    <div class="col-5">
+                        <span id="userIdTypeError"></span>
+                    </div>
+                </div>
+                <!--                ROW 7 -->
+                <div class="row col-xs-12" id="otherRow">
+                    <div class="col-3">
+                        <label> If Other</label>
+                    </div>
+                    <div class="col-4">
+                        <input class="form-control" th:field="*{ifOther}" type="text">
+                    </div>
+                    <div class="col-5">
+                        <span id="ifOtherError"></span>
+                    </div>
+                </div>
+                <!--                ROW 8 -->
+                <div class="row col-xs-12">
+                    <div class="col-3">
+                        <label> Id Number</label>
+                    </div>
+                    <div class="col-4">
+                        <input class="form-control" th:field="*{userIdNum}" type="text">
+                    </div>
+                    <div class="col-5">
+                        <span id="userIdNumError"></span>
+                    </div>
+                </div>
+
+                <button class="btn btn-success" type="submit">Update User</button>
+
+            </form>
+        </div>
+
+        <div class="card-footer">
+
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/myjs/whusrType.js}"></script>
+</body>
+</html>

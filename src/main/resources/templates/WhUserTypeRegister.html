@@ -1,0 +1,142 @@
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+    <style>
+        .col-xs-12 {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <div class="card">
+        <div class="card-header text-center bg-dark text-white">
+            WareHouse User Register Page
+        </div>
+        <div class="card-body">
+
+            <form id="whUserTypeRegisterForm" method="post" th:action="@{/wh/save}">
+                <!--                ROW 1 -->
+                <div class="row col-xs-12">
+                    <div class="col-3">
+                        <label>User Type</label>
+                    </div>
+                    <div class="col-4">
+                        <input id="userTypeVendor" name="userType" type="radio" value="Vendor"> Vendor
+                        <input id="userTypeCustomer" name="userType" type="radio" value="Customer"> Customer
+                    </div>
+                    <div class="col-5">
+                        <span id="userTypeError"></span>
+                    </div>
+                </div>
+                <!--                ROW 2 -->
+                <div class="row col-xs-12">
+                    <div class="col-3">
+                        <label for="userCode">User Code</label>
+                    </div>
+                    <div class="col-4">
+                        <input class="form-control" id="userCode" name="userCode" type="text">
+                    </div>
+                    <div class="col-5">
+                        <span id="userCodeError"></span>
+                    </div>
+                </div>
+                <!--                ROW 3 -->
+                <div class="row col-xs-12">
+                    <div class="col-3">
+                        <label for="userFor"> User For</label>
+                    </div>
+                    <div class="col-4">
+                        <input class="form-control" id="userFor" name="userFor" readonly type="text">
+                    </div>
+                    <div class="col-5">
+                        <span id="userForError"></span>
+                    </div>
+                </div>
+                <!--                ROW 4 -->
+                <div class="row col-xs-12">
+                    <div class="col-3">
+                        <label for="userEmail">User Email</label>
+                    </div>
+                    <div class="col-4">
+                        <input class="form-control" id="userEmail" name="userEmail" type="email">
+                    </div>
+                    <div class="col-5">
+                        <span id="userEmailError"></span>
+                    </div>
+                </div>
+                <!--                ROW 5 -->
+                <div class="row col-xs-12">
+                    <div class="col-3">
+                        <label for="userContact">User Contact</label>
+                    </div>
+                    <div class="col-4">
+                        <input class="form-control" id="userContact" name="userContact" type="text">
+
+                    </div>
+                    <div class="col-5">
+                        <span id="userContactError"></span>
+                    </div>
+                </div>
+                <!--                ROW 6 -->
+                <div class="row col-xs-12">
+                    <div class="col-3">
+                        <label for="userIdType">User ID Type </label>
+                    </div>
+                    <div class="col-4">
+                        <select class="form-control" id="userIdType" name="userIdType">
+                            <option value="">-SELECT-</option>
+                            <option value="PAN CARD">PAN CARD</option>
+                            <option value="AADHAR CARD">AADHAR CARD</option>
+                            <option value="VOTER ID">VOTER ID</option>
+                            <option value="OTHER">OTHER</option>
+                        </select>
+                    </div>
+                    <div class="col-5">
+                        <span id="userIdTypeError"></span>
+                    </div>
+                </div>
+                <!--                ROW 7 -->
+                <div class="row col-xs-12" id="otherRow">
+                    <div class="col-3">
+                        <label for="ifOther"> If Other</label>
+                    </div>
+                    <div class="col-4">
+                        <input class="form-control" id="ifOther" name="ifOther" type="text">
+                    </div>
+                    <div class="col-5">
+                        <span id="ifOtherError"></span>
+                    </div>
+                </div>
+                <!--                ROW 8 -->
+                <div class="row col-xs-12">
+                    <div class="col-3">
+                        <label for="userIdNum"> Id Number</label>
+                    </div>
+                    <div class="col-4">
+                        <input class="form-control" id="userIdNum" name="userIdNum" type="text">
+                    </div>
+                    <div class="col-5">
+                        <span id="userIdNumError"></span>
+                    </div>
+                </div>
+
+                <button class="btn btn-success" type="submit">Create User</button>
+
+            </form>
+        </div>
+
+        <div class="card-footer" th:if="${message!=null}">
+            <span th:text="${message}"></span>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/myjs/whusrType.js}"></script>
+</body>
+</html>

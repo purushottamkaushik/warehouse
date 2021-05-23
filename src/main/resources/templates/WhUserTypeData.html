@@ -1,0 +1,58 @@
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+<div class="container">
+    <a class="btn btn-primary" th:href="@{/wh/excel}">Export Excel </a>
+    <a class="btn btn-primary" th:href="@{/wh/chart}">Charts </a>
+    <div class="card">
+        <div class="card-header text-center bg-dark text-white">
+            <h1>WareHouse User update Form</h1>
+        </div>
+        <div class="card-body">
+            <table class="table table-hover">
+                <tr>
+                    <th>ID</th>
+                    <th>Type</th>
+                    <th>Code</th>
+                    <th>For</th>
+                    <th>Email</th>
+                    <th>Contact</th>
+                    <th>ID type</th>
+                    <th>Other</th>
+                    <th>ID Num</th>
+                    <th>Operations</th>
+
+                </tr>
+                <tr th:each="ob:${whUserTypeObjects}">
+                    <td th:text="${ob.getId()}">ID</td>
+                    <td th:text="${ob.getUserType()}">Type</td>
+                    <td th:text="${ob.getUserCode()}">Code</td>
+                    <td th:text="${ob.getUserFor()}">For</td>
+                    <td th:text="${ob.getUserEmail()}">Email</td>
+                    <td th:text="${ob.getUserContact()}">Contact</td>
+                    <td th:text="${ob.getUserIdType()}">ID type</td>
+                    <td th:text="${ob.getIfOther()}">Other</td>
+                    <td th:text="${ob.getUserIdNum()}">ID Num</td>
+                    <td>
+                        <a class="btn btn-warning" th:href="@{/wh/edit(id=${ob.getId()})}">EDIT</a>
+                        <a class="btn btn-danger" th:href="@{/wh/delete(id=${ob.getId()})}">DELETE</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="card-footer">
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
