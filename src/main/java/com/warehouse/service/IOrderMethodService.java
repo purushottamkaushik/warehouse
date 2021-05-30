@@ -4,6 +4,7 @@ import com.warehouse.customexception.OrderMethodNotFoundException;
 import com.warehouse.model.OrderMethod;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IOrderMethodService {
 
@@ -23,4 +24,5 @@ public interface IOrderMethodService {
 
     List<Object[]> getOrderModeCount();
 
+    Map<Integer,String> getAllOrderCodes();
 }

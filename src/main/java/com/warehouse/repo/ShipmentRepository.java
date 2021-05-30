@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface ShipmentRepo extends JpaRepository<ShipmentType, Integer> {
+public interface ShipmentRepository extends JpaRepository<ShipmentType, Integer> {
 
 
     // Register page

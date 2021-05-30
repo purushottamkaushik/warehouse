@@ -1,7 +1,7 @@
 package com.warehouse.service.impl;
 
 import com.warehouse.model.ShipmentType;
-import com.warehouse.repo.ShipmentRepo;
+import com.warehouse.repo.ShipmentRepository;
 import com.warehouse.service.IShipmentTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import java.util.Optional;
 public class ShipmentTypeServiceImpl implements IShipmentTypeService {
 
     @Autowired
-    private ShipmentRepo repo;
+    private ShipmentRepository repo;
 
     @Override
     public Integer saveShipmentType(ShipmentType shipmentType) {

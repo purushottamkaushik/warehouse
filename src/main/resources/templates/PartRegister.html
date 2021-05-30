@@ -1,0 +1,138 @@
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+        <div class="card-header text-center bg-dark text-white">
+            Part Register
+        </div>
+        <div class="card-body">
+
+            <form id="partRegisterForm" method="post" th:action="@{/part/save}">
+
+                <!--                ROW 1-->
+                <div class="row">
+                    <div class="col-4">
+                        <label for="partCode">Part Code</label>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" id="partCode" name="partCode" class="form-control">
+                    </div>
+                    <div class="col-4">
+                        <span id="partCodeError"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <label>Part Dimensions </label>
+                    </div>
+                    <div class="col-4">
+                          W <input type="text" name="partWidth" id="partWidth" class="form-control">
+                          L <input type="text" name="partLength" id="partLength" class="form-control">
+                          H <input type="text" name="partHeight" id="partHeight" class="form-control">
+                    </div>
+                    <div class="col-4">
+                        <span id="dimensionsError"></span>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <label>Base Cost</label>
+                    </div>
+                    <div class="col-4">
+                        <input id="partBaseCost" name="partBaseCost" type="text" class="form-control">
+                    </div>
+                    <div class="col-4">
+                        <span id="partBaseCostError"></span>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <label>Base Currency</label>
+                    </div>
+                    <div class="col-4">
+                        <select name="partBaseCurrency" id="partBaseCurrency" class="form-control">
+                            <option value="">--SELECT--</option>
+                            <option value="INR">INR</option>
+                            <option value="USD">USD</option>
+                            <option value="AUS">AUS</option>
+                            <option value="ERU">ERU</option>
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <span id="partBaseCurrencyError"></span>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-4">
+                        <label>Uom</label>
+                    </div>
+                    <div class="col-4">
+                        <select name="uom.id" class="form-control">
+                            <option value="">--SELECT--</option>
+                            <option th:each="ob:${uoms}"
+                                th:value="${ob.key}"
+                                th:text="${ob.value}"></option>
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <span id="uomError"></span>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                     <label> Order Method </label>
+                    </div>
+                    <div class="col-4">
+                        <select name="om.id" class="form-control">
+                            <option value="">--SELECT--</option>
+                            <option th:each="ob:${oms}" th:value="${ob.key}" th:text="${ob.value}"></option>
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <span id="omError"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <label for="description">Description</label>
+                    </div>
+                    <div class="col-4">
+                        <textarea class="form-control" id="description" name="description"></textarea>
+                    </div>
+                    <div class="col-4">
+                        <span id="descriptionError"></span>
+                    </div>
+
+                </div>
+
+                <button class="btn btn-success" type="submit"><i class="fas fa-plus"></i>Create</button>
+            </form>
+
+        </div>
+
+        <div class="card-footer" th:if="${message!=null}">
+            Developed by me :)
+            <span th:text="${message}"></span>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/myjs/shipmentType.js}" type="text/javascript">
+
+</script>
+
+</body>
+</html>

@@ -22,7 +22,7 @@ public class ShipmentType {
     @Column(name = "shipment_mode")
     private String shipmentMode;
 
-    @Column(name = "shipment_code", unique = true)
+    @Column(name = "shipment_code" , nullable = false, unique = true,length = 20)
     private String shipmentCode;
 
     @Column(name = "shipment_enabled")

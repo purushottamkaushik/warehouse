@@ -2,18 +2,20 @@ package com.warehouse.service.impl;
 
 import com.warehouse.customexception.UomNotFoundException;
 import com.warehouse.model.Uom;
-import com.warehouse.repo.UomRepo;
+import com.warehouse.repo.UomRepository;
 import com.warehouse.service.IUomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UomServiceImpl implements IUomService {
 
     @Autowired
-    private UomRepo repo;
+    private UomRepository repo;
 
     @Override
     public String saveUom(Uom uom) {
@@ -63,6 +65,17 @@ public class UomServiceImpl implements IUomService {
     @Override
     public List<Object[]> getUomTypeCount() {
         return repo.getUomTypeAndCount();
+    }
+
+    @Override
+    public Map<Integer, String> getUomIdAndModel() {
+
+        Map<Integer,String> map= new LinkedHashMap<>();
+        List<Object[]> uomIdAndModelsList =  repo.getUomIdAndModel();
+       for (Object[] obj : uomIdAndModelsList) {
+           map.put((Integer) obj[0],obj[1].toString());
+       }
+       return map;
     }
 
 

@@ -194,7 +194,7 @@ public class WhUserTypeController {
             LOGGER.info("Entered into WhUserType Chart method");
             List<Object[]> data = service.getUserTypeCount();
             String path = context.getRealPath("/");
-            util.generatePieChart(path, data);
+            util.generateBarChart(path, data);
             util.generateBarChart(path, data);
             LOGGER.info("Exiting from WhUserType Chart method");
         } catch (Exception e) {
@@ -202,6 +202,5 @@ public class WhUserTypeController {
         }
         return "WhUserTypeCharts";
     }
-
 }
 

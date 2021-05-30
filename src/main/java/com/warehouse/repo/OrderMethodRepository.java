@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface OrderMethodRepo extends JpaRepository<OrderMethod, Integer> {
+public interface OrderMethodRepository extends JpaRepository<OrderMethod, Integer> {
 
     // For Register purpose
     @Query("SELECT count(orderCode) FROM OrderMethod WHERE orderCode<>:orderCode")
@@ -21,5 +21,9 @@ public interface OrderMethodRepo extends JpaRepository<OrderMethod, Integer> {
     // For chart
     @Query("SELECT orderMode , count(orderMode) FROM OrderMethod GROUP BY orderMode")
     List<Object[]> shipmentTypeModeCount();
+
+    // For Integration
+    @Query("SELECT  id , orderCode FROM  OrderMethod")
+    List<Object[]> getAllOrderCodes();
 
 }

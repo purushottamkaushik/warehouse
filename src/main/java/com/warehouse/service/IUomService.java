@@ -4,6 +4,7 @@ import com.warehouse.customexception.UomNotFoundException;
 import com.warehouse.model.Uom;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IUomService {
 
@@ -22,4 +23,6 @@ public interface IUomService {
     boolean isUomModelExistForEdit(String uomModel, Integer id);
 
     List<Object[]> getUomTypeCount();
+
+    Map<Integer,String> getUomIdAndModel();
 }
