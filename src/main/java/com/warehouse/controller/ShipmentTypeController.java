@@ -164,7 +164,7 @@ public class ShipmentTypeController {
         return m;
     }
 
-    @GetMapping("/chart")
+    @GetMapping("/charts")
     public String getShipmentModeChart() {
         try {
             LOG.info("Entered into Shipment Chart method");

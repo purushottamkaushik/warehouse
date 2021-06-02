@@ -18,12 +18,12 @@ public class Document {
     @Column(name = "id")
     @GeneratedValue(generator = "doc_gen")
     @SequenceGenerator(name = "doc_gen",sequenceName = "doc_gen_sequence")
-    private long docId ;
+    private Integer docId ;
 
-    @Column(name = "doc_name")
+    @Column(name = "doc_name",nullable = false,unique = true)
     private String docName;
 
-    @Column(name = "doc_data")
+    @Column(name = "doc_data",nullable = false,unique = true ,length = 10000)
     @Lob
     private byte[] docData; // this will behave as a blob data
 }

@@ -45,7 +45,7 @@ public class OrderMethodController {
             LOGGER.debug("Exit save order method");
         } catch (Exception e) {
             LOGGER.info("Could not save order method {} ", e.getMessage());
-            model.addAttribute("message", e.getMessage());
+            model.addAttribute("message", "Check applivation logs");
         }
         return "OrderMethodRegister";
     }
@@ -131,7 +131,7 @@ public class OrderMethodController {
         return m;
     }
 
-    @GetMapping("/chart")
+    @GetMapping("/charts")
     public String generateCharts() {
         try {
             List<Object[]> list = service.getOrderModeCount();

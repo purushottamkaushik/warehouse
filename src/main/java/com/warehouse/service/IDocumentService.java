@@ -10,5 +10,7 @@ public interface IDocumentService {
 
   void saveDocument(Document document);
   List<Object[]> getDocumentIdAndName();
+  void deleteDocumentById(Integer id);
 
+  Document getDocumentById(Integer id);
 }

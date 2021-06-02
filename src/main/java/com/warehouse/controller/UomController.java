@@ -164,7 +164,7 @@ public class UomController {
         return m;
     }
 
-    @GetMapping("/chart")
+    @GetMapping("/charts")
     public String getUomTypeChart() {
         try {
             LOG.info("Entered into UomTypeChart method");

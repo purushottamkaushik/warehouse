@@ -23,4 +23,22 @@ public class DocumentImpl implements IDocumentService {
     public List<Object[]> getDocumentIdAndName() {
         return repository.getDocumentIdAndName();
     }
+
+    @Override
+    public void deleteDocumentById(Integer id) {
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+        } else{
+            throw new RuntimeException("Document with id'" +id+ "' doesnt exists");
+        }
+    }
+
+    @Override
+    public Document getDocumentById(Integer id) {
+        if(repository.existsById(id)) {
+            return repository.findById(id).get();
+        } else{
+            throw new RuntimeException("Document with id'" +id+"' not found");
+        }
+    }
 }

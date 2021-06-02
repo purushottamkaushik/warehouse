@@ -188,7 +188,7 @@ public class WhUserTypeController {
         return m;
     }
 
-    @GetMapping("/chart")
+    @GetMapping("/charts")
     public String generateWhUserTypeChart() {
         try {
             LOGGER.info("Entered into WhUserType Chart method");
