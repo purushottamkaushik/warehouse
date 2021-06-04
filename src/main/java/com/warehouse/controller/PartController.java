@@ -58,6 +58,9 @@ public class PartController {
             LOGGER.info("Entered into save Part method");
             Integer id = service.savePart(part);
             model.addAttribute("message", "Part with id'" + id + " 'created Success");
+            new Thread(()->{
+                // email will come here
+            }).start();
             LOGGER.debug("Exit part SAVE method");
         } catch (Exception e) {
             LOGGER.info("Could not SAVE part : {} ", e.getMessage());

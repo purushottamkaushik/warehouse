@@ -1,0 +1,109 @@
+<html>
+<head>
+
+    <title>Shipment Type Register </title>
+</head>
+<body>
+<div th:insert="fragments/commonui :: userheader"></div>
+<div th:insert="fragments/commonui :: usermenu"></div>
+
+<div class="container">
+    <div class="card">
+        <div class="card-header text-center bg-dark text-white">
+            Purchase Order Register Page
+        </div>
+        <div class="card-body">
+
+            <form id="purchaseOrderRegisterForm" method="post" th:action="@{/po/save}">
+
+<!--                ROW -1-->
+                <div class="row">
+                    <div class="col-4">
+                        <label>Order Code </label>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" name="orderCode" id="orderCode" class="form-control">
+                    </div>
+                    <div class="col-4">
+                        <span id="orderCodeError"></span>
+                    </div>
+
+                </div>
+
+<!--                ROW -2-->
+                <div class="row">
+                    <div class="col-4">
+                        <label>Reference Number </label>
+                    </div>
+                    <div class="col-4">
+                        <input class="form-control" id="refNumber" name="refNumber" type="text">
+                    </div>
+                    <div class="col-4">
+                        <span id="refNumberError"></span>
+                    </div>
+
+                </div>
+
+<!--                ROW-3   -->
+
+                <div class="row">
+                    <div class="col-4">
+                        <label>Quality Check</label>
+                    </div>
+                    <div class="col-4">
+                        <input id="qualityCheckRequired" name="qualityCheck" type="radio" value="Required"> Required
+                        <input id="qualityCheckNotRequired" name="qualityCheck" type="radio" value="Not Required"> Not Required
+                    </div>
+                    <div class="col-4">
+                        <span id="qualityCheckError"></span>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-4">
+                        <label>Default Status</label>
+                    </div>
+                    <div class="col-4">
+                        <input id="status" name="status" type="text" class="form-control" value="OPEN" readonly>
+                    </div>
+                    <div class="col-4">
+                        <span id="statusError"></span>
+                    </div>
+
+                </div>
+
+<!--                    ROW -4-->
+
+
+                <div class="row">
+                    <div class="col-4">
+                        <label for="description">Description</label>
+                    </div>
+                    <div class="col-4">
+                        <textarea class="form-control" id="description" name="description"></textarea>
+                    </div>
+                    <div class="col-4">
+                        <span id="descriptionError"></span>
+                    </div>
+
+                </div>
+
+                <button class="btn btn-success" type="submit"><i class="fas fa-plus"></i>Create Order</button>
+            </form>
+
+        </div>
+
+        <div class="card-footer" th:if="${message!=null}">
+            Developed by me :)
+            <span th:text="${message}"></span>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/myjs/po.js}" type="text/javascript">
+
+</script>
+
+</body>
+</html>

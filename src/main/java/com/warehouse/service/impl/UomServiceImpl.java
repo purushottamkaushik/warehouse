@@ -4,6 +4,7 @@ import com.warehouse.customexception.UomNotFoundException;
 import com.warehouse.model.Uom;
 import com.warehouse.repo.UomRepository;
 import com.warehouse.service.IUomService;
+import com.warehouse.util.MyAppUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -69,13 +70,8 @@ public class UomServiceImpl implements IUomService {
 
     @Override
     public Map<Integer, String> getUomIdAndModel() {
-
-        Map<Integer,String> map= new LinkedHashMap<>();
-        List<Object[]> uomIdAndModelsList =  repo.getUomIdAndModel();
-       for (Object[] obj : uomIdAndModelsList) {
-           map.put((Integer) obj[0],obj[1].toString());
-       }
-       return map;
+       List<Object[]> uomIdAndModelList = repo.getUomIdAndModel();
+       return MyAppUtil.convertListToMap(uomIdAndModelList);
     }
 
 
