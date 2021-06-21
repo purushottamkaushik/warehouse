@@ -4,10 +4,12 @@ import com.warehouse.customexception.WhUserTypeNotFoundException;
 import com.warehouse.model.WhUserType;
 import com.warehouse.repo.WhUserTypeRepository;
 import com.warehouse.service.IWhUserTypeService;
+import com.warehouse.util.MyAppUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class WhUserTypeServiceImpl implements IWhUserTypeService {
@@ -76,5 +78,10 @@ public class WhUserTypeServiceImpl implements IWhUserTypeService {
     @Override
     public List<Object[]> getUserTypeCount() {
         return repo.getCountUserType();
+    }
+
+    @Override
+    public Map<Integer, String> getWhUserIdAndCodeByType(String type) {
+        return MyAppUtil.convertListToMap(repo.getWhUserIdAndCodeByType(type));
     }
 }

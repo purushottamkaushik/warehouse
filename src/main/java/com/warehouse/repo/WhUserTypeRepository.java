@@ -37,4 +37,8 @@ public interface WhUserTypeRepository extends JpaRepository<WhUserType, Integer>
     List<Object[]> getCountUserType();
 
 
+    // For integration in Purchase Order Module
+    @Query("SELECT id , userCode FROM  WhUserType WHERE userType=:userType")
+    List<Object[]> getWhUserIdAndCodeByType(String userType);
+
 }

@@ -2,6 +2,7 @@ package com.warehouse.controller;
 
 import com.warehouse.model.WhUserType;
 import com.warehouse.service.IWhUserTypeService;
+import com.warehouse.util.EmailUtil;
 import com.warehouse.util.WhUserTypeUtil;
 import com.warehouse.view.WhUserTypeExcelView;
 import org.slf4j.Logger;
@@ -29,6 +30,9 @@ public class WhUserTypeController {
     @Autowired
     private WhUserTypeUtil util;
 
+    @Autowired
+    private EmailUtil emailUtil;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(WhUserTypeController.class);
 
     @GetMapping("/register")
@@ -42,6 +46,14 @@ public class WhUserTypeController {
         try {
             LOGGER.info("Entered into WhType Save method");
             Integer id = service.addWhUserType(whUserType);
+
+            // After id created successfully send email for sending notification
+            if( id>0) {
+                new Thread(()->{
+                    emailUtil.sendEmail(whUserType.getUserEmail(),"User Registereed",
+                            "user Registered with code : " + whUserType.getUserCode());
+                }).start();
+            }
             String message = "WhUser with id '" + id + "' saved Successfully";
             model.addAttribute("message", message);
             LOGGER.debug("Exiting from WhType Save method");

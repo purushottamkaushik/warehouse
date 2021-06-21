@@ -3,6 +3,7 @@ package com.warehouse.service;
 import com.warehouse.model.ShipmentType;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IShipmentTypeService {
     Integer saveShipmentType(ShipmentType shipmentType);
@@ -21,5 +22,7 @@ public interface IShipmentTypeService {
 
 
     List<Object[]> getShipmentModeAndCount();
+
+    Map<Integer,String> getShipmentIdAndCodeByEnable(String enable);
 
 }

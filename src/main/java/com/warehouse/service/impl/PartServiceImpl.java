@@ -5,10 +5,12 @@ import com.warehouse.model.OrderMethod;
 import com.warehouse.model.Part;
 import com.warehouse.repo.PartRepository;
 import com.warehouse.service.IPartService;
+import com.warehouse.util.MyAppUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class PartServiceImpl implements IPartService {
@@ -37,4 +39,12 @@ public class PartServiceImpl implements IPartService {
     public List<Part> getAllParts() {
         return repo.findAll();
     }
+
+    @Override
+    public Map<Integer, String> getPartIdAndCode() {
+        List<Object[]> list = repo.getPartIdAndCode();
+        return MyAppUtil.convertListToMap(list);
+    }
+
+
 }

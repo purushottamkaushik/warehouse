@@ -1,19 +1,21 @@
 package com.warehouse.service.impl;
 
 import com.warehouse.model.ShipmentType;
-import com.warehouse.repo.ShipmentRepository;
+import com.warehouse.repo.ShipmentTypeRepository;
 import com.warehouse.service.IShipmentTypeService;
+import com.warehouse.util.MyAppUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
 public class ShipmentTypeServiceImpl implements IShipmentTypeService {
 
     @Autowired
-    private ShipmentRepository repo;
+    private ShipmentTypeRepository repo;
 
     @Override
     public Integer saveShipmentType(ShipmentType shipmentType) {
@@ -72,5 +74,10 @@ public class ShipmentTypeServiceImpl implements IShipmentTypeService {
     @Override
     public List<Object[]> getShipmentModeAndCount() {
         return repo.getShipmentModeAndCount();
+    }
+
+    @Override
+    public Map<Integer,String> getShipmentIdAndCodeByEnable(String enable) {
+            return MyAppUtil.convertListToMap(repo.getShipmentIdAndCodeByEnable(enable));
     }
 }

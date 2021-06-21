@@ -6,6 +6,7 @@ import com.warehouse.model.OrderMethod;
 import com.warehouse.model.Part;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IPartService {
 
@@ -24,6 +25,8 @@ public interface IPartService {
 //    boolean isOrderCodeExists(String orderCode, Integer id);
 //
 //    List<Object[]> getOrderModeCount();
+
+    Map<Integer,String> getPartIdAndCode();
 
 
 }

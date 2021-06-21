@@ -23,7 +23,7 @@ public class Document {
     @Column(name = "doc_name",nullable = false,unique = true)
     private String docName;
 
-    @Column(name = "doc_data",nullable = false,unique = true)
+    @Column(name = "doc_data" ,nullable = false,unique = true)
     @Lob
     private byte[] docData; // this will behave as a blob data
 }

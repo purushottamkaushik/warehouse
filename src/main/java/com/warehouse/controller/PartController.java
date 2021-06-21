@@ -66,7 +66,7 @@ public class PartController {
             LOGGER.info("Could not SAVE part : {} ", e.getMessage());
             model.addAttribute("message", e.getMessage());
         }
-        return "PartRegister";
+        return "redirect:register";
     }
 
     @GetMapping("/all")

@@ -11,7 +11,7 @@ import java.util.List;
 public interface OrderMethodRepository extends JpaRepository<OrderMethod, Integer> {
 
     // For Register purpose
-    @Query("SELECT count(orderCode) FROM OrderMethod WHERE orderCode<>:orderCode")
+    @Query("SELECT count(orderCode) FROM OrderMethod WHERE orderCode=:orderCode")
     Integer isOrderCodeExist(String orderCode);
 
     // For Edit Operation

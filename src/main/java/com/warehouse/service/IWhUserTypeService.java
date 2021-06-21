@@ -4,6 +4,7 @@ import com.warehouse.customexception.WhUserTypeNotFoundException;
 import com.warehouse.model.WhUserType;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IWhUserTypeService {
 
@@ -31,5 +32,6 @@ public interface IWhUserTypeService {
 
     List<Object[]> getUserTypeCount();
 
+    Map<Integer,String> getWhUserIdAndCodeByType(String type);
 
 }

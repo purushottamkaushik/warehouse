@@ -8,7 +8,7 @@
 <div th:insert="fragments/commonui :: usermenu"></div>
 
 
-<div class="container">
+<div class="container-fluid">
     <a class="btn btn-primary" th:href="@{/wh/excel}">Export Excel </a>
     <a class="btn btn-primary" th:href="@{/wh/chart}">Charts </a>
     <div class="card">
@@ -31,15 +31,15 @@
 
                 </tr>
                 <tr th:each="ob:${whUserTypeObjects}">
-                    <td th:text="${ob.getId()}">ID</td>
-                    <td th:text="${ob.getUserType()}">Type</td>
-                    <td th:text="${ob.getUserCode()}">Code</td>
-                    <td th:text="${ob.getUserFor()}">For</td>
-                    <td th:text="${ob.getUserEmail()}">Email</td>
-                    <td th:text="${ob.getUserContact()}">Contact</td>
-                    <td th:text="${ob.getUserIdType()}">ID type</td>
-                    <td th:text="${ob.getIfOther()}">Other</td>
-                    <td th:text="${ob.getUserIdNum()}">ID Num</td>
+                    <td th:text="${ob.getId()}"></td>
+                    <td th:text="${ob.getUserType()}"></td>
+                    <td th:text="${ob.getUserCode()}"></td>
+                    <td th:text="${ob.getUserFor()}"></td>
+                    <td th:text="${ob.getUserEmail()}"></td>
+                    <td th:text="${ob.getUserContact()}"></td>
+                    <td th:text="${ob.getUserIdType()}"></td>
+                    <td th:text="${ob.getIfOther()}"></td>
+                    <td th:text="${ob.getUserIdNum()}"></td>
                     <td>
                         <a class="btn btn-warning" th:href="@{/wh/edit(id=${ob.getId()})}">EDIT</a>
                         <a class="btn btn-danger" th:href="@{/wh/delete(id=${ob.getId()})}">DELETE</a>

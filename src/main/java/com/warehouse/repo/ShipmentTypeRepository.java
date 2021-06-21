@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface ShipmentRepository extends JpaRepository<ShipmentType, Integer> {
+public interface ShipmentTypeRepository extends JpaRepository<ShipmentType, Integer> {
 
 
     // Register page
@@ -21,5 +21,12 @@ public interface ShipmentRepository extends JpaRepository<ShipmentType, Integer>
     // For charts Data
     @Query("SELECT shipmentMode, count(shipmentMode) FROM  ShipmentType GROUP BY shipmentMode")
     List<Object[]> getShipmentModeAndCount();
+
+
+    // For Dyanmic DropDown in PO
+    @Query("SELECT id, shipmentCode FROM ShipmentType WHERE enableShipment=:enable")
+    List<Object[]> getShipmentIdAndCodeByEnable(String enable);
+
+
 
 }

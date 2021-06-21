@@ -35,5 +35,13 @@ public class PurchaseOrder {
     @Column(name = "description")
     private String description;
 
+    // Integrations
+    @ManyToOne
+    @JoinColumn(name = "st_id_fk")
+    private ShipmentType st ;
+
+    @ManyToOne
+    @JoinColumn(name = "wh_id_fk")
+    private WhUserType vendor;
 
 }
