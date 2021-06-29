@@ -21,33 +21,34 @@
                     <th>Shipment Code</th>
                     <th>Vendor Code</th>
                     <th>Order Code</th>
-                    <th>Reference Number</th>
+                    <!--                    <th>Reference Number</th>-->
                     <th>Quality Check</th>
                     <th>Status</th>
 
                     <th>Description</th>
                     <th>Operations</th>
                 </tr>
-                <tr th:each="ob:${list}">
-                    <td th:text="${ob.id}"></td>
+                <tr th:each="ob,i:${list}">
+                    <td th:text="${i.count}"></td>
                     <td th:text="${ob.st.shipmentCode}"></td>
                     <td th:text="${ob.vendor.userCode}"></td>
                     <td th:text="${ob.orderCode}"></td>
-                    <td th:text="${ob.refNumber}"></td>
+                    <!--                    <td th:text="${ob.refNumber}"></td>-->
                     <td th:text="${ob.qualityCheck}"></td>
                     <td th:text="${ob.status}"></td>
                     <td th:text="${ob.description}"></td>
                     <td>
-                       <a class="btn btn-warning" th:href="@{/po/parts(id=${ob.id})}">Add Part</a>
+                        <a class="btn btn-warning" th:href="@{/po/parts(id=${ob.id})}">Add Part</a>
+                        <span th:if="${ob.status == 'OPEN' || ob.status =='PICKING' || ob.status=='ORDERED'}"> <a class="btn btn-danger " th:href="@{/po/cancelorder(poId=${ob.id})}"> Cancel Order</a> </span>
                     </td>
                 </tr>
 
             </table>
         </div>
         <div class="card-footer">
-<!--            <div th:if="${message!=null}">-->
-<!--                <span th:text="${message}"></span>-->
-<!--            </div>-->
+            <!--            <div th:if="${message!=null}">-->
+            <!--                <span th:text="${message}"></span>-->
+            <!--            </div>-->
         </div>
     </div>
 </div>

@@ -48,10 +48,9 @@ public class PurchaseOrderController {
     private IPartService partService;
 
 
-
     private void commonUi(Model model) {
-        model.addAttribute("sts",shipmentTypeService.getShipmentIdAndCodeByEnable("YES"));
-        model.addAttribute("vendors",whUserTypeService.getWhUserIdAndCodeByType("Vendor"));
+        model.addAttribute("sts", shipmentTypeService.getShipmentIdAndCodeByEnable("YES"));
+        model.addAttribute("vendors", whUserTypeService.getWhUserIdAndCodeByType("Vendor"));
     }
 
 
@@ -61,7 +60,6 @@ public class PurchaseOrderController {
         commonUi(model);
         return "PurchaseOrderRegister";
     }
-
 
 
     //2. Save Operation
@@ -78,7 +76,7 @@ public class PurchaseOrderController {
             LOG.error("Could not save Purchase Order: {}", e.getMessage());
             message = e.getMessage();
         }
-        model.addAttribute("message",message);
+        model.addAttribute("message", message);
         commonUi(model);
         return "PurchaseOrderRegister";
     }
@@ -89,7 +87,6 @@ public class PurchaseOrderController {
 
         try {
             LOG.info("Entered into getAllPurchaseOrders method");
-
             List<PurchaseOrder> purchaseOrders = poService.getPurchaseOrders();
             model.addAttribute("list", purchaseOrders);
             commonUi(model);
@@ -104,22 +101,22 @@ public class PurchaseOrderController {
     // =======================# Screen 2========================================
 
     private void commonUiParts(Model model) {
-        model.addAttribute("parts",partService.getPartIdAndCode()); // Dynamic DropDown
+        model.addAttribute("parts", partService.getPartIdAndCode()); // Dynamic DropDown
     }
 
     @GetMapping("/parts")
-    public String showPartsPage(@RequestParam("id") Integer id , Model model) {
-        try{
+    public String showPartsPage(@RequestParam("id") Integer id, Model model) {
+        try {
             LOG.info("Entered into parts PO parts method");
             PurchaseOrder po = poService.getOnePurchaseOrder(id);
-            model.addAttribute("po",po);
+            model.addAttribute("po", po);
 
             // All Purchase Details for a specific purchase Id poId
             List<PurchaseDtl> poDtls = poService.getPurchaseDetailsByPoId(id);
-            model.addAttribute("list",poDtls);
+            model.addAttribute("list", poDtls);
             LOG.info("Exiting from parts PO parts method");
         } catch (Exception e) {
-            LOG.error("Could not show parts : {}",e.getMessage());
+            LOG.error("Could not show parts : {}", e.getMessage());
             e.printStackTrace();
         }
 
@@ -129,48 +126,95 @@ public class PurchaseOrderController {
 
 
     /**
-     *  This method will invoke when we click on add button
-     *
-     * */
+     * This method will invoke when we click on add button
+     */
     @PostMapping("/addpart")
-    public String addPart(PurchaseDtl dtl ) {
+    public String addPart(PurchaseDtl dtl) {
         try {
-            LOG.info("Adding PO part");
-            // Checking part exists or not if exists then update the quantity
-            Integer poId = dtl.getPo().getId();
-            Integer partId = dtl.getPart().getId();
+            //            LOG.info("Adding PO part");
 
-            Optional<PurchaseDtl> purchaseDtlOptional = poService.getPurchaseDetailsByPoIdAndPartId(poId,partId);
+            String status = poService.getCurrentStatusByPoId(dtl.getPo().getId());
+            if (PurchaseOrderStatus.OPEN.name().equals(status) || PurchaseOrderStatus.PICKING.name().equals(status)) {
+                // Checking part exists or not if exists then update the quantity
+                Integer poId = dtl.getPo().getId();
+                Integer partId = dtl.getPart().getId();
 
-            if (purchaseDtlOptional.isPresent()) {  // If the purchase detail related with PO and part exists then update
-                poService.updatePurchaseDetailQtyById(dtl.getQty(),purchaseDtlOptional.get().getId());
-            } else {
-                poService.savePurchaseDetail(dtl);
-            }
+                Optional<PurchaseDtl> purchaseDtlOptional = poService.getPurchaseDetailsByPoIdAndPartId(poId, partId);
 
-            if (PurchaseOrderStatus.OPEN.name().equals(poService.getCurrentStatusByPoId(poId))) {
-                poService.updateCurrentStatusByPoId(poId,PurchaseOrderStatus.PICKING.name());
+                if (purchaseDtlOptional.isPresent()) {  // If the purchase detail related with PO and part exists then update
+                    poService.updatePurchaseDetailQtyById(dtl.getQty(), purchaseDtlOptional.get().getId());
+                } else {
+                    poService.savePurchaseDetail(dtl);
+                }
+
+                if (PurchaseOrderStatus.OPEN.name().equals(poService.getCurrentStatusByPoId(poId))) {
+                    poService.updateCurrentStatusByPoId(poId, PurchaseOrderStatus.PICKING.name());
+                }
             }
             LOG.info("Part Added Success");
             // Returning to the same page
             return "redirect:parts?id=" + dtl.getPo().getId();
         } catch (Exception e) {
-            LOG.error("Could not Add Part : {}" , e.getMessage());
+            LOG.error("Could not Add Part : {}", e.getMessage());
         }
-        return  null;
+        return null;
     }
 
     @GetMapping("/deletepdtl")
-    public String deletePurchaseDetail(@RequestParam Integer poId , @RequestParam Integer dtlId) {
-        poService.deletePurchaseDetailById(dtlId);
+    public String deletePurchaseDetail(@RequestParam Integer poId, @RequestParam Integer dtlId) {
 
-
-        // Should check if there is no item in the Purchase Order
-        if(poService.getPurchaseDetailCountByPoId(poId) == 0) {
-            poService.updateCurrentStatusByPoId(poId,PurchaseOrderStatus.OPEN.name());
+        String status = poService.getCurrentStatusByPoId(poId);
+        if (status.equals(PurchaseOrderStatus.PICKING.name())) {
+            poService.deletePurchaseDetailById(dtlId);
+            // Should check if there is no item in the Purchase Order
+            if (poService.getPurchaseDetailCountByPoId(poId) == 0) {
+                poService.updateCurrentStatusByPoId(poId, PurchaseOrderStatus.OPEN.name());
+            }
         }
-        return "redirect:parts?id="+poId;
+        return "redirect:parts?id=" + poId;
     }
 
+
+    /**
+     * Increase Detail  Id Quantity
+     */
+
+    @GetMapping("/increaseQty")
+    public String increaseQty(@RequestParam Integer poId, @RequestParam Integer dtlId) {
+        String status = poService.getCurrentStatusByPoId(poId);
+        if(PurchaseOrderStatus.PICKING.name().equals(status)){
+            poService.updatePurchaseDetailQtyById(1, dtlId);
+        }
+        return "redirect:parts?id=" + poId;
+    }
+
+
+    @GetMapping("/decreaseQty")
+    public String decreaseQty(@RequestParam Integer poId, @RequestParam Integer dtlId) {
+        String status = poService.getCurrentStatusByPoId(poId);
+        if(PurchaseOrderStatus.PICKING.name().equals(status)){
+            poService.updatePurchaseDetailQtyById(-1, dtlId);
+        }
+        return "redirect:parts?id=" + poId;
+    }
+
+    @GetMapping("/placeorder")
+    public String placeOrder(@RequestParam Integer poId) {
+        String status = poService.getCurrentStatusByPoId(poId);
+        if (PurchaseOrderStatus.PICKING.name().equals(status)) {
+            poService.updateCurrentStatusByPoId(poId, PurchaseOrderStatus.ORDERED.name());
+        }
+        return "redirect:parts?id=" + poId;
+    }
+
+    @GetMapping("/cancelorder")
+    public String cancelOrder(@RequestParam Integer poId) {
+        String status = poService.getCurrentStatusByPoId(poId);
+        if (PurchaseOrderStatus.OPEN.name().equals(status) || PurchaseOrderStatus.PICKING.name().equals(status) ||
+                PurchaseOrderStatus.ORDERED.name().equals(status) || ! PurchaseOrderStatus.CANCELLED.name().equals(status)) {
+            poService.updateCurrentStatusByPoId(poId, PurchaseOrderStatus.CANCELLED.name());
+        }
+        return "redirect:all";
+    }
 
 }

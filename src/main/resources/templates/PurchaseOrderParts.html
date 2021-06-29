@@ -7,81 +7,92 @@
 <body>
 <div th:insert="fragments/commonui :: userheader"></div>
 <div th:insert="fragments/commonui :: usermenu"></div>
-        <div class="container">
-            <div class="card">
-                <div class="card-header">
-                    PO Parts Page
-                </div>
-                <div class="card-body">
-                   <div class="row">
-                       <table class="table table-hover">
-                           <tr>
-
-                               <th class="bg-primary">Code </th>
-                               <th th:text="${po.orderCode}"></th>
-                               <th class="bg-primary">Status </th>
-                               <th th:text="${po.status}"></th>
-
-                           </tr>
-
-                       </table>
-                   </div>
-
-<!--    Add Part Section                -->
-                    <div class="row">
-                        <form method="post" th:action="@{/po/addpart}" >
-                            <div class="row">
-
-                                <div class="col-6">
-                                    <label>Choose Part</label>
-                                    <select name="part.id" id="partId" class="form-control">
-                                        <option value="">-SELECT-</option>
-                                        <option th:each="ob:${parts}"
-                                                th:text="${ob.value}"
-                                                th:value="${ob.key}"
-                                        ></option>
-                                    </select>
-                                </div>
-
-                                <div class="col-3">
-                                    <label>Quantity</label>
-                                    <input type="number" name="qty" id="qty" class="form-control">
-                                </div>
-                                <input type="hidden" name="po.id" th:value="${po.id}">
-                                <div class="col-2">
-                                    <button type="submit" class="btn btn-success"> ADD</button>
-                                </div>
-                            </div>
-                        </form>
-
-                    </div>
-                    <hr>
-
-<!--        Display the Details Part            -->
-                <div class="row">
-                    <table class="table table-hover">
-                        <tr>
-                            <th>SLNO</th>
-                            <th>PARt</th>
-                            <th>COST</th>
-                            <th>QUANTITY</th>
-                            <th>OPERATIONS</th>
-                        </tr>
-
-                        <tr th:each="ob,i:${list}">
-                            <td th:text="${i.count}" ></td>
-                            <td th:text="${ob.part.partCode}"></td>
-                            <td th:text="${ob.part.partBaseCost}"></td>
-                            <td th:text="${ob.qty}"></td>
-                            <td>
-                                <a th:href="@{/po/deletepdtl(poId=${po.id},dtlId=${ob.id})}" class="btn btn-warning">REMOVE</a>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-
-                </div>
-            </div>
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            PO Parts Page
         </div>
+        <div class="card-body">
+            <div class="row">
+                <table class="table table-hover">
+                    <tr>
+
+                        <th class="bg-primary">Code</th>
+                        <th th:text="${po.orderCode}"></th>
+                        <th class="bg-primary">Status</th>
+                        <th th:text="${po.status}"></th>
+
+                    </tr>
+
+                </table>
+            </div>
+
+            <!--    Add Part Section                -->
+            <div class="row" >
+                <form method="post" th:action="@{/po/addpart}" th:if="${po.status == 'OPEN' || po.status == 'PICKING' }">
+                    <div class="row">
+
+                        <div class="col-6">
+                            <label>Choose Part</label>
+                            <select name="part.id" id="partId" class="form-control">
+                                <option value="">-SELECT-</option>
+                                <option th:each="ob:${parts}"
+                                        th:text="${ob.value}"
+                                        th:value="${ob.key}"
+                                ></option>
+                            </select>
+                        </div>
+
+                        <div class="col-3">
+                            <label>Quantity</label>
+                            <input type="number" name="qty" id="qty" class="form-control">
+                        </div>
+                        <input type="hidden" name="po.id" th:value="${po.id}">
+                        <div class="col-2">
+                            <button type="submit" class="btn btn-success"> ADD</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <hr>
+
+            <!--        Display the Details Part            -->
+            <div class="row">
+                <table class="table table-hover">
+                    <tr>
+                        <th>SLNO</th>
+                        <th>PARt</th>
+                        <th>COST</th>
+                        <th>QUANTITY</th>
+                        <th>OPERATIONS</th>
+                    </tr>
+
+                    <tr th:each="ob,i:${list}">
+                        <td th:text="${i.count}"></td>
+                        <td th:text="${ob.part.partCode}"></td>
+                        <td th:text="${ob.part.partBaseCost}"></td>
+                        <td>
+                            <span th:text="${ob.qty}"></span>
+
+                            <span ><a th:if="${po.status == 'PICKING' }" th:href="@{/po/increaseQty(poId=${po.id},dtlId=${ob.id})}" class="btn">+</a></span>
+                            <span th:if="${ob.qty>1 && po.status == 'PICKING'}"><a th:href="@{/po/decreaseQty(poId=${po.id},dtlId=${ob.id})}" class="btn">-</a></span>
+                        </td>
+                        <td>
+                            <a   th:if="${po.status == 'PICKING'}"
+                                    th:href="@{/po/deletepdtl(poId=${po.id},dtlId=${ob.id})}"
+                               class="btn btn-warning">REMOVE</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div th:if="${po.status == 'PICKING'}">
+                <a th:href="@{/po/placeorder(poId=${po.id})}" class="btn btn-success"> Place Order </a>
+            </div>
+
+        </div>
+    </div>
+</div>
 </body>
 </html>

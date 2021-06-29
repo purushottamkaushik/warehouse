@@ -1,5 +1,5 @@
 package com.warehouse.consts;
 
 public enum PurchaseOrderStatus {
-    OPEN,PICKING,ORDERED,INVOICED , RECIEVED
+    OPEN,PICKING,ORDERED,INVOICED , RECEIVED, CANCELLED
 }
