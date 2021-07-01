@@ -4,7 +4,9 @@ import com.warehouse.customexception.UomNotFoundException;
 import com.warehouse.model.Uom;
 import com.warehouse.service.IUomService;
 import com.warehouse.util.UomUtil;
+import com.warehouse.view.ShipmentTypePdfView;
 import com.warehouse.view.UomExcelExport;
+import com.warehouse.view.UomPdfView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -177,6 +179,15 @@ public class UomController {
             LOG.error("Could not generate chart : {} ", e.getMessage());
         }
         return "UomChart";
+    }
+
+    @GetMapping("/pdf")
+    public ModelAndView generatePdf(){
+
+        ModelAndView m = new ModelAndView();
+        m.setView(new UomPdfView());
+        m.addObject("list",uomService.getAllUoms());
+        return m;
     }
 
 

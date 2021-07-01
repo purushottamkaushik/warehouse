@@ -4,6 +4,7 @@ import com.warehouse.model.ShipmentType;
 import com.warehouse.service.IShipmentTypeService;
 import com.warehouse.util.ShipmentTypeUtil;
 import com.warehouse.view.ShipmentTypeExcelView;
+import com.warehouse.view.ShipmentTypePdfView;
 import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -178,6 +179,15 @@ public class ShipmentTypeController {
             e.printStackTrace();
         }
         return "ShipmentTypeChart";
+    }
+
+    @GetMapping("/pdf")
+    public ModelAndView showPdf() {
+        ModelAndView m = new ModelAndView();
+        m.setView(new ShipmentTypePdfView());
+        m.addObject("list",service.getAllShipmentType());
+        return m;
+
     }
 
 }

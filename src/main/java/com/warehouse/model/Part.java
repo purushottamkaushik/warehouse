@@ -32,7 +32,7 @@ public class Part {
     private String partLength;
 
     @Column(name = "part_base_cost")
-    private String partBaseCost;
+    private Double partBaseCost;
 
     @Column(name = "part_base_currency")
     private String partBaseCurrency;

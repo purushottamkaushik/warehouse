@@ -18,7 +18,7 @@ public class PurchaseDtl {
     @GeneratedValue(generator = "po_gen")
     private Integer id;
 
-    @Column(name = "po_dtl_wty")
+    @Column(name = "po_dtl_qty")
     private Integer qty;
 
     // Many Part are connected to one purchase detail

@@ -10,6 +10,7 @@ import com.warehouse.repo.PurchaseDetailRepository;
 import com.warehouse.service.*;
 import com.warehouse.util.UomUtil;
 import com.warehouse.view.UomExcelExport;
+import com.warehouse.view.VendorInvoicePdfView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -215,6 +216,28 @@ public class PurchaseOrderController {
             poService.updateCurrentStatusByPoId(poId, PurchaseOrderStatus.CANCELLED.name());
         }
         return "redirect:all";
+    }
+
+    @GetMapping("/generate")
+    public String generateInvoice(@RequestParam Integer id){
+        poService.updateCurrentStatusByPoId(id,PurchaseOrderStatus.INVOICED.name());
+        return "redirect:all";
+    }
+
+    @GetMapping("/print")
+    public ModelAndView generateVendorInvoice(@RequestParam Integer id) {
+        ModelAndView m = new ModelAndView();
+        m.setView(new VendorInvoicePdfView());
+
+        // Fetching PurchaseDetails By PurchaseOrderId(POID)
+        List<PurchaseDtl> purchaseDtlList = poService.getPurchaseDetailsByPoId(id);
+        m.addObject("list",purchaseDtlList);
+
+        // Fetching purchaseOrder By Id i.e PurchaseId
+        PurchaseOrder po = poService.getOnePurchaseOrder(id);
+        m.addObject("po",po);
+
+        return m;
     }
 
 }
