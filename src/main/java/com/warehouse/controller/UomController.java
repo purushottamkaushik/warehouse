@@ -45,7 +45,7 @@ public class UomController {
         String message = "";
         try {
             LOG.info("Entered into UOM Save method");
-            String id = uomService.saveUom(uom);
+            Integer id = uomService.saveUom(uom);
             model.addAttribute("message", "Uom having id " + id + " created");
             LOG.info("Exiting from UOM Save method");
         } catch (Exception e) {

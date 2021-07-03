@@ -8,7 +8,7 @@ import java.util.Map;
 
 public interface IUomService {
 
-    String saveUom(Uom uom);
+    Integer saveUom(Uom uom);
 
     Uom getOneUom(Integer id) throws UomNotFoundException;
 

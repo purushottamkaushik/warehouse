@@ -19,9 +19,9 @@ public class UomServiceImpl implements IUomService {
     private UomRepository repo;
 
     @Override
-    public String saveUom(Uom uom) {
+    public Integer saveUom(Uom uom) {
         Uom uom1 = repo.save(uom);
-        return uom1.getId().toString();
+        return uom1.getId();
     }
 
     @Override
