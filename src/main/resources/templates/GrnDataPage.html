@@ -1,0 +1,51 @@
+<html>
+<head>
+    <title>Uom Data Page</title>
+</head>
+<body>
+<div th:insert="fragments/commonui :: userheader"></div>
+<div th:insert="fragments/commonui :: usermenu"></div>
+
+<div class="container-fluid">
+
+    <div class="card">
+        <div class="card-header bg-info text-center text-black">
+            Grn Data Page
+        </div>
+
+        <div class="card-body">
+<!--            <a class="btn btn-primary text-white" th:href="@{/uom/excel}">Export Excel</a>-->
+<!--            <a class="btn btn-primary text-white" th:href="@{/uom/charts}">Charts</a>-->
+<!--            <a class="btn btn-primary text-white" th:href="@{/uom/pdf}">Pdf Export</a>-->
+            <table class="table table-hover">
+                <tr>
+                    <th>Id</th>
+                    <th>Grn Code</th>
+                    <th>PO</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>View Part</th>
+                </tr>
+                <tr th:each="ob:${list}">
+                    <td th:text="${ob.id}"></td>
+                    <td th:text="${ob.grnCode}"></td>
+                    <td th:text="${ob.po.orderCode}"></td>
+                    <td th:text="${ob.grnType}"></td>
+                    <td th:text="${ob.description}"></td>
+                    <td>
+                        <a class="btn btn-warning" th:href="@{/grn/parts(id=${ob.id})}">View Parts</a>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+        <div class="card-footer">
+            <div th:if="${message!=null}">
+                <span th:text="${message}"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -96,4 +96,12 @@ public class PurchaseOrderServiceImpl implements IPurchaseOrderService {
     public void updatePurchaseDetailQtyById(Integer newValue, Integer id) {
         purchaseDetailRepository.updatePurchaseDetailQtyById(newValue, id);
     }
+
+    @Override
+    public Map<Integer, String> getPoByStatus(String status) {
+        List<Object[]> poList =purchaseOrderRepository.getPoByStatus(status);
+        return MyAppUtil.convertListToMap(poList);
+    }
+
+
 }

@@ -38,7 +38,7 @@
                     <td th:text="${ob.status}"></td>
                     <td th:text="${ob.description}"></td>
                     <td>
-                        <a class="btn btn-warning" th:href="@{/po/parts(id=${ob.id})}">Add Part</a>
+                        <a class="btn btn-warning" th:if="${ob.status == 'OPEN' || ob.status =='PICKING'}" th:href="@{/po/parts(id=${ob.id})}">Add Part</a>
                         <span th:if="${ob.status == 'OPEN' || ob.status =='PICKING' || ob.status=='ORDERED'}">
                             <a class="btn btn-danger " th:href="@{/po/cancelorder(poId=${ob.id})}"> Cancel Order</a>
                         </span>

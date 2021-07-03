@@ -44,4 +44,7 @@ public interface IPurchaseOrderService {
     Optional<PurchaseDtl> getPurchaseDetailsByPoIdAndPartId(Integer poId, Integer partId);
 
     void updatePurchaseDetailQtyById(Integer newValue, Integer id);
+
+    Map<Integer,String> getPoByStatus(String status);
+
 }

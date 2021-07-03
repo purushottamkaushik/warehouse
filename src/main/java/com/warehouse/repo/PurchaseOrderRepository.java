@@ -28,4 +28,6 @@ public interface PurchaseOrderRepository extends JpaRepository<PurchaseOrder, In
     @Query("update PurchaseOrder set status=:status where id=:poId")
     void updatePoStatus(Integer poId, String status);
 
+    @Query("SELECT id,orderCode from PurchaseOrder where status=:status")
+    List<Object[]> getPoByStatus(String status);
 }
