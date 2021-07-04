@@ -98,8 +98,8 @@ public class PurchaseOrderServiceImpl implements IPurchaseOrderService {
     }
 
     @Override
-    public Map<Integer, String> getPoByStatus(String status) {
-        List<Object[]> poList =purchaseOrderRepository.getPoByStatus(status);
+    public Map<Integer, String> getIdAndOrderCodeByStatus(String status) {
+        List<Object[]> poList =purchaseOrderRepository.getIdAndOrderCodeByStatus(status);
         return MyAppUtil.convertListToMap(poList);
     }
 

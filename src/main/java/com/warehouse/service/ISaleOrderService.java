@@ -1,8 +1,11 @@
 package com.warehouse.service;
 
+import com.warehouse.model.SaleDtl;
 import com.warehouse.model.SaleOrder;
 
+import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 public interface ISaleOrderService {
 
@@ -12,7 +15,24 @@ public interface ISaleOrderService {
 
     void deleteSaleOrder(Integer id);
 
+
+
+    // Screen 2 Operations
+
+
     SaleOrder getOneSaleOrder(Integer id);
 
     List<SaleOrder> getAllSaleOrders();
+
+    String getCurrentStatusById(Integer id);
+
+    Optional<SaleDtl> getSaleOrderBySaleIdAndPartId(Integer soId, Integer partId );
+
+
+    void updateSaleOrderStatus(Integer id ,String status);
+
+
+    void updateSaleDetail(Integer id, Integer qty);
+
+    Integer saveSaleDetail(SaleDtl saleDtl);
 }

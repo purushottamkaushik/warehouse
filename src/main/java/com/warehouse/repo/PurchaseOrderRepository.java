@@ -20,6 +20,7 @@ public interface PurchaseOrderRepository extends JpaRepository<PurchaseOrder, In
     @Query("SELECT count(orderCode) FROM PurchaseOrder WHERE orderCode=:orderCode AND id<>:id")
     Integer getOrderCodeCountForEdit(String orderCode , Integer id);
 
+    // Getting the current status of PurchaseOrder by PoId
     @Query("SELECT status from PurchaseOrder where id=:poId")
     String getCurrentStatusByPoId(Integer poId);
 
@@ -28,6 +29,7 @@ public interface PurchaseOrderRepository extends JpaRepository<PurchaseOrder, In
     @Query("update PurchaseOrder set status=:status where id=:poId")
     void updatePoStatus(Integer poId, String status);
 
+    // Grn getPoStatus Which are invoiced
     @Query("SELECT id,orderCode from PurchaseOrder where status=:status")
-    List<Object[]> getPoByStatus(String status);
+    List<Object[]> getIdAndOrderCodeByStatus(String status);
 }

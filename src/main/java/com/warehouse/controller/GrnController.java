@@ -35,7 +35,7 @@ public class GrnController {
      */
     @GetMapping("/register")
     public String showRegisterPage(Model model) {
-        model.addAttribute("list",purchaseOrderService.getPoByStatus(PurchaseOrderStatus.INVOICED.name()));
+        model.addAttribute("list",purchaseOrderService.getIdAndOrderCodeByStatus(PurchaseOrderStatus.INVOICED.name()));
         return "GrnRegisterPage";
     }
 
@@ -113,7 +113,6 @@ public class GrnController {
 
     @GetMapping("/reject")
     public String rejectStatus(@RequestParam Integer grnDetailId, @RequestParam Integer grnId) {
-
         grnService.updateGrnDetailsById(grnDetailId, GrnStatus.REJECTED.name());
         return "redirect:parts?id="+grnId;
     }

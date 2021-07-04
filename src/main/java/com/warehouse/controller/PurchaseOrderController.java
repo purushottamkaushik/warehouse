@@ -1,15 +1,10 @@
 package com.warehouse.controller;
 
 import com.warehouse.consts.PurchaseOrderStatus;
-import com.warehouse.customexception.UomNotFoundException;
 import com.warehouse.model.PurchaseDtl;
 import com.warehouse.model.PurchaseOrder;
-import com.warehouse.model.Uom;
-import com.warehouse.repo.PartRepository;
-import com.warehouse.repo.PurchaseDetailRepository;
 import com.warehouse.service.*;
 import com.warehouse.util.UomUtil;
-import com.warehouse.view.UomExcelExport;
 import com.warehouse.view.VendorInvoicePdfView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +22,7 @@ import java.util.Optional;
 @RequestMapping("/po")
 public class PurchaseOrderController {
 
-    private final static Logger LOG = LoggerFactory.getLogger(PurchaseOrderController.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(PurchaseOrderController.class);
 
 
     @Autowired
@@ -68,13 +63,13 @@ public class PurchaseOrderController {
     public String savePo(@ModelAttribute PurchaseOrder purchaseOrder, Model model) {
         String message = "";
         try {
-            LOG.info("Entered into Purchase Order  Save method");
+            LOGGER.info("Entered into Purchase Order  Save method");
             Integer id = poService.savePurchaseOrder(purchaseOrder);
 
             model.addAttribute("message", "Purchase Order having id " + id + " created");
-            LOG.info("Exiting from Purchase Order Save method");
+            LOGGER.info("Exiting from Purchase Order Save method");
         } catch (Exception e) {
-            LOG.error("Could not save Purchase Order: {}", e.getMessage());
+            LOGGER.error("Could not save Purchase Order: {}", e.getMessage());
             message = e.getMessage();
         }
         model.addAttribute("message", message);
@@ -87,13 +82,13 @@ public class PurchaseOrderController {
     public String getAllPurchaseOrders(Model model) {
 
         try {
-            LOG.info("Entered into getAllPurchaseOrders method");
+            LOGGER.info("Entered into getAllPurchaseOrders method");
             List<PurchaseOrder> purchaseOrders = poService.getPurchaseOrders();
             model.addAttribute("list", purchaseOrders);
             commonUi(model);
-            LOG.info("Exiting from getAllPurchaseOrders method");
+            LOGGER.info("Exiting from getAllPurchaseOrders method");
         } catch (Exception e) {
-            LOG.error("Could not fetch Purchase Orders: {}", e.getMessage());
+            LOGGER.error("Could not fetch Purchase Orders: {}", e.getMessage());
         }
         return "PurchaseOrderData";
 
@@ -105,19 +100,27 @@ public class PurchaseOrderController {
         model.addAttribute("parts", partService.getPartIdAndCode()); // Dynamic DropDown
     }
 
+
+    /***
+     * This method is executed when we click on add part button on the data page
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("/parts")
     public String showPartsPage(@RequestParam("id") Integer id, Model model) {
         try {
-            LOG.info("Entered into parts PO parts method");
+            LOGGER.info("Entered into parts PO parts method");
             PurchaseOrder po = poService.getOnePurchaseOrder(id);
             model.addAttribute("po", po);
 
             // All Purchase Details for a specific purchase Id poId
             List<PurchaseDtl> poDtls = poService.getPurchaseDetailsByPoId(id);
             model.addAttribute("list", poDtls);
-            LOG.info("Exiting from parts PO parts method");
+            LOGGER.info("Exiting from parts PO parts method");
+
         } catch (Exception e) {
-            LOG.error("Could not show parts : {}", e.getMessage());
+            LOGGER.error("Could not show parts : {}", e.getMessage());
             e.printStackTrace();
         }
 
@@ -142,7 +145,7 @@ public class PurchaseOrderController {
 
                 Optional<PurchaseDtl> purchaseDtlOptional = poService.getPurchaseDetailsByPoIdAndPartId(poId, partId);
 
-                if (purchaseDtlOptional.isPresent()) {  // If the purchase detail related with PO and part exists then update
+                if (purchaseDtlOptional.isPresent()) {  // If the purchase detail related with PO and part existSs then update
                     poService.updatePurchaseDetailQtyById(dtl.getQty(), purchaseDtlOptional.get().getId());
                 } else {
                     poService.savePurchaseDetail(dtl);
@@ -151,12 +154,14 @@ public class PurchaseOrderController {
                 if (PurchaseOrderStatus.OPEN.name().equals(poService.getCurrentStatusByPoId(poId))) {
                     poService.updateCurrentStatusByPoId(poId, PurchaseOrderStatus.PICKING.name());
                 }
+            } else {
+
             }
-            LOG.info("Part Added Success");
+            LOGGER.info("Part Added Success");
             // Returning to the same page
             return "redirect:parts?id=" + dtl.getPo().getId();
         } catch (Exception e) {
-            LOG.error("Could not Add Part : {}", e.getMessage());
+            LOGGER.error("Could not Add Part : {}", e.getMessage());
         }
         return null;
     }

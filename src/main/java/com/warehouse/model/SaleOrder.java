@@ -9,8 +9,8 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table
-@Entity(name = "sale_order_tab")
+@Entity
+@Table(name = "sale_order_tab")
 public class SaleOrder {
 
     @Id

@@ -23,6 +23,7 @@
                         <th>Status</th>
                         <th>Shipment Type</th>
                         <th>User Type</th>
+                        <th>Operations</th>
                     </tr>
 
                     <tr th:each="ob:${list}">
@@ -33,6 +34,11 @@
                        <td th:text="${ob.status}"></td>
                        <td th:text="${ob.st.id}"></td>
                        <td th:text="${ob.customer.id}"></td>
+                       <td>
+                           <span>
+                               <a th:href="@{/so/parts(id=${ob.id})}" class="btn btn-warning">Add Part</a>
+                           </span>
+                       </td>
                     </tr>
                 </table>
             </div>
