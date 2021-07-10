@@ -126,9 +126,9 @@ public class SaleOrderController {
             SaleOrder sOrder = saleOrderService.getOneSaleOrder(id);
             model.addAttribute("so", sOrder);
 
-            model.addAttribute("part",partService.getPartIdAndCode());
-
-
+            model.addAttribute("part", partService.getPartIdAndCode());
+            List<SaleDtl> saleDtls = saleOrderService.getSaleOrderDetailsBySoId(id);
+            model.addAttribute("sos", saleDtls);
             LOGGER.debug("Exit from sale Order Show Parts  method");
         } catch (SaleOrderNotFoundException snfe) {
             LOGGER.error("Could not find sale Order : {0}", snfe.getMessage());
@@ -148,30 +148,123 @@ public class SaleOrderController {
     public String addpart(
             @ModelAttribute SaleDtl saleDtl// Sale Order Id
     ) {
-
         Integer id = saleDtl.getSo().getId();  //  SaleId
         Integer partId = saleDtl.getPart().getId(); // PartId
-        String status =saleOrderService.getCurrentStatusById(id) ; // Get Sale Order Status by soId
+        try {
 
-        if(SaleOrderStatus.OPEN.name().equals(status) || SaleOrderStatus.READY.name().equals(status)) {
+            String status = saleOrderService.getCurrentStatusById(id); // Get Sale Order Status by soId
 
-           Optional<SaleDtl> saleDtlExist =  saleOrderService.getSaleOrderBySaleIdAndPartId(id, partId);
-            if (saleDtlExist.isPresent()) {
-                saleOrderService.updateSaleDetail(saleDtlExist.get().getId(), saleDtl.getQty());
-                LOGGER.debug("SALE ORDER DETAIL UPDATED");
+            if (SaleOrderStatus.OPEN.name().equals(status) || SaleOrderStatus.READY.name().equals(status)) {
+
+                Optional<SaleDtl> saleDtlExist = saleOrderService.getSaleOrderBySaleIdAndPartId(id, partId);
+                if (saleDtlExist.isPresent()) {
+                    saleOrderService.updateSaleDetail(saleDtlExist.get().getId(), saleDtl.getQty());
+                    LOGGER.debug("SALE ORDER DETAIL UPDATED");
+                } else {
+                    saleOrderService.saveSaleDetail(saleDtl);
+                    LOGGER.debug("SALE ORDER DETAIL ADDED");
+                }
+                if (SaleOrderStatus.OPEN.name().equals(status)) {
+                    saleOrderService.updateSaleOrderStatus(id, SaleOrderStatus.READY.name());
+
+                }
+
             } else {
-                saleOrderService.saveSaleDetail(saleDtl);
-                LOGGER.debug("SALE ORDER DETAIL ADDED");
+                LOGGER.error("Sale Order Status is not correct");
             }
-            if(SaleOrderStatus.OPEN.name().equals(status)) {
-                saleOrderService.updateSaleOrderStatus(id,SaleOrderStatus.READY.name());
-
-            }
-
-        } else {
-            LOGGER.error("Sale Order Status is not correct");
+        } catch (Exception e) {
+            LOGGER.error(" Could not add part  : {} ", e.getMessage());
         }
-        return "redirect:parts?id="+id;
+        return "redirect:parts?id=" + id;
     }
+
+    @GetMapping("/deletesshipDtl")
+    public String removeSaleDetail(@RequestParam Integer dtlId, @RequestParam Integer soId) {
+        try {
+            String status = saleOrderService.getCurrentStatusById(soId);
+            if (status.equals(SaleOrderStatus.READY.name())) {  // check if the current status is READY ==> Having atleast one product
+                saleOrderService.deleteSaleDtlById(dtlId);
+                if (saleOrderService.isSaleDetailsExistBySoId(soId).intValue() == 0) {
+                    saleOrderService.updateSaleOrderStatus(soId, SaleOrderStatus.OPEN.name());
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.error("Could Not delete Shipment : {} ", e.getMessage());
+        }
+        return "redirect:parts?id=" + soId;
+    }
+
+    @GetMapping("/increaseqty")
+    public String increaseQty(@RequestParam Integer soId,  // Required for
+                              @RequestParam Integer dtlId) {
+        try {
+            LOGGER.info("Entered into Increase Quantity method");
+            saleOrderService.updateSaleQuantity(dtlId, 1);
+            LOGGER.debug("Exit from increase Quantity method");
+        } catch (Exception e) {
+            LOGGER.error("Could not Increase Qty : {} ", e.getMessage());
+        }
+        return "redirect:parts?id=" + soId;
+    }
+
+    @GetMapping("/decreaseqty")
+    public String decreaseQty(@RequestParam Integer soId,  // Required for
+                              @RequestParam Integer dtlId) {
+        try {
+            LOGGER.info("Entered into Decrease Quantity method");
+            saleOrderService.updateSaleQuantity(dtlId, -1);
+            LOGGER.debug("Exit from Decrease  Quantity method");
+        } catch (Exception e) {
+            LOGGER.error("Could not Increase Qty : {} ", e.getMessage());
+        }
+        return "redirect:parts?id=" + soId;
+    }
+
+    @GetMapping("/confirm")
+    public String confirmShipping(@RequestParam Integer soId) {
+        try {
+            LOGGER.info("Entered into Sale Order Confirm method");
+            saleOrderService.updateSaleOrderStatus(soId, SaleOrderStatus.CONFIRM.name());
+            LOGGER.debug("Exit from sale Order confirm method ");
+        } catch (Exception e) {
+            LOGGER.error("Could not confirm : {} ", e.getMessage());
+        }
+        return "redirect:parts?id=" + soId;
+    }
+
+    @GetMapping("/generate")
+    public String generateInvoice(@RequestParam Integer soId) {
+        String status = saleOrderService.getCurrentStatusById(soId);
+        try {
+            LOGGER.info("Entered Into Sale Order Generate Invoice Method ");
+            if (status.equals(SaleOrderStatus.CONFIRM.name())) {
+                saleOrderService.updateSaleOrderStatus(soId, SaleOrderStatus.INVOICED.name());
+            }
+            LOGGER.debug("Exiting from Sale Order Generate Invoice method ");
+        } catch (Exception e) {
+            LOGGER.error("Could not generate invoice : {} " , e.getMessage());
+        }
+        return "redirect:all";
+    }
+
+
+    @GetMapping("/printinvoice")
+    public void printInvoice(@RequestParam Integer soId) {
+        System.out.println("HELLO");
+    }
+
+    @GetMapping("/cancel")
+    public String cancelOrder(@RequestParam Integer soId) {
+        String status = saleOrderService.getCurrentStatusById(soId);
+        try {
+            if (status.equals(SaleOrderStatus.OPEN.name()) || status.equals(SaleOrderStatus.READY.name()) || status.equals(SaleOrderStatus.CONFIRM.name()) || status.equals("INVOICED")) {
+                saleOrderService.updateSaleOrderStatus(soId,SaleOrderStatus.CANCELLED.name());
+            }
+        }catch (Exception e) {
+            LOGGER.error("Could Not Cancel Shipping : {} " , e.getMessage());
+        }
+        return "redirect:all";
+    }
+
 
 }

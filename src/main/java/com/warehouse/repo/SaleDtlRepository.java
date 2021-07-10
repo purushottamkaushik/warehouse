@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface SaleDtlRepository extends JpaRepository<SaleDtl , Integer> {
@@ -20,4 +21,8 @@ public interface SaleDtlRepository extends JpaRepository<SaleDtl , Integer> {
     @Modifying
     @Query("UPDATE SaleDtl SET qty=qty +:newValue WHERE id=:id")
     void updateDetailQuantityById(Integer id, Integer newValue);
+
+    @Query("SELECT saleDtl FROM SaleDtl saleDtl JOIN saleDtl.so as so where so.id=:id")
+    List<SaleDtl> getSaleDtlsBySaleId(Integer id);
+
 }

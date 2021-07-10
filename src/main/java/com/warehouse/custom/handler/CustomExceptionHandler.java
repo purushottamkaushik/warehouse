@@ -25,7 +25,9 @@ public class CustomExceptionHandler {
 
     @ExceptionHandler(SaleOrderNotFoundException.class)
     public ResponseEntity<ErrorType> saleOrderNotFoundExceptionHandler(SaleOrderNotFoundException sonfe) {
-        return new ResponseEntity<>(new ErrorType(new Date().toString(),"Sale Order",sonfe.getMessage()),HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(new ErrorType(new Date().toString(),
+                "Sale Order",sonfe.getMessage()),HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
 
 }

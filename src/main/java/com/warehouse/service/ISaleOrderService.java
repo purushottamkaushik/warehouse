@@ -35,4 +35,12 @@ public interface ISaleOrderService {
     void updateSaleDetail(Integer id, Integer qty);
 
     Integer saveSaleDetail(SaleDtl saleDtl);
+
+    List<SaleDtl> getSaleOrderDetailsBySoId(Integer id);
+
+    public Integer isSaleDetailsExistBySoId(Integer id);
+
+    void deleteSaleDtlById(Integer dtlId);
+
+    void updateSaleQuantity(Integer dtlId, Integer newValue );
 }

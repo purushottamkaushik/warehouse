@@ -35,9 +35,27 @@
                        <td th:text="${ob.st.id}"></td>
                        <td th:text="${ob.customer.id}"></td>
                        <td>
-                           <span>
+                           <span th:if="${ob.status == 'READY' || ob.status=='OPEN'}">
                                <a th:href="@{/so/parts(id=${ob.id})}" class="btn btn-warning">Add Part</a>
                            </span>
+
+                           <span th:if="${ob.status == 'CONFIRM' || ob.status == 'INVOICED' || ob.status == 'SHIPPED' || ob.status== 'CANCELLED'}">
+                               <a th:href="@{/so/parts(id=${ob.id})}" class="btn btn-success">View </a>
+                           </span>
+
+                           <span th:if="${ob.status == 'CONFIRM' }">
+                               <a th:href="@{/so/generate(soId=${ob.id})}"> GENERATE INVOICE</a>
+                           </span>
+
+                           <span th:if="${ob.status == 'INVOICED' }">
+                               <a th:href="@{/so/printinvoice(soId=${ob.id})}" class="btn btn-success">PRINT INVOICE</a>
+                           </span>
+
+
+                           <span th:if="${ob.status == 'OPEN' || ob.status == 'READY' || ob.status == 'CONFIRM'}">
+                               <a th:href="@{/so/cancel(soId=${ob.id})}">Cancel Order </a>
+                           </span>
+
                        </td>
                     </tr>
                 </table>

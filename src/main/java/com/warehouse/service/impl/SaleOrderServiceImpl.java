@@ -1,5 +1,6 @@
 package com.warehouse.service.impl;
 
+import com.warehouse.customexception.SaleDetailNotFoundException;
 import com.warehouse.customexception.SaleOrderNotFoundException;
 import com.warehouse.model.SaleDtl;
 import com.warehouse.model.SaleOrder;
@@ -92,5 +93,31 @@ public class SaleOrderServiceImpl implements ISaleOrderService {
     @Override
     public Integer saveSaleDetail(SaleDtl saleDtl) {
         return saleDtlRepository.save(saleDtl).getId();
+    }
+
+    @Override
+    public List<SaleDtl> getSaleOrderDetailsBySoId(Integer id) {
+        return saleDtlRepository.getSaleDtlsBySaleId(id);
+    }
+
+    @Override
+    public Integer isSaleDetailsExistBySoId(Integer id) {
+        return saleDtlRepository.getSaleDtlsBySaleId(id).size() ;
+    }
+
+    @Override
+    public void deleteSaleDtlById(Integer dtlId) {
+
+        if (saleDtlRepository.existsById(dtlId)) {
+            saleDtlRepository.deleteById(dtlId);
+        } else {
+            throw new SaleDetailNotFoundException("Sale Detail having Detail Id " + dtlId + " Not Found " );
+        }
+    }
+
+    @Override
+    @Transactional
+    public void updateSaleQuantity(Integer dtlId, Integer newValue) {
+        saleDtlRepository.updateDetailQuantityById(dtlId,newValue);
     }
 }

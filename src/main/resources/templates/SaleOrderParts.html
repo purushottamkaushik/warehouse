@@ -22,7 +22,7 @@
                 </tr>
             </table>
 
-            <form th:action="@{/so/addpart(id=${so.id})}" method="post">
+            <form th:action="@{/so/addpart}" method="post" th:if="${so.status == 'OPEN' || so.status == 'READY'} ">
                 <div class="row">
                     <div class="col-3">
                         <div><label> Select Item</label>
@@ -54,6 +54,42 @@
                 </div>
             </form>
 
+            <table class="table table-hover">
+
+                <tr>
+                    <th>Serial No</th>
+                    <th>Item </th>
+                    <th>Base Cost </th>
+                    <th>Qty</th>
+
+
+                </tr>
+                <tr th:each="ob,count:${sos}">
+                    <td th:text="${count.count}"></td>
+                    <td th:text="${ob.part.partCode}"></td>
+                    <td th:text="${ob.part.partBaseCost}"></td>
+                    <td >
+                        <span th:text="${ob.qty}"></span>
+                        <span th:if="${so.status == 'READY'}">
+                            <a class="btn btn-success" th:href="@{/so//increaseqty(soId=${so.id},dtlId=${ob.id})}">+</a>
+                        </span >
+                        <span th:if="${ob.qty > 1 && so.status == 'READY'} ">
+                            <a class="btn btn-success" th:href="@{/so//decreaseqty(soId=${so.id},dtlId=${ob.id})}">-</a>
+
+                        </span>
+                    </td>
+
+                    <td>
+                        <span th:if="${so.status =='READY'}" ><a th:href="@{/so/deletesshipDtl(dtlId=${ob.id},soId=${so.id})}" class="btn btn-warning">Remove</a></span>
+                    </td>
+
+                </tr>
+            </table>
+
+            <span th:if="${so.status == 'READY'} ">
+                            <a th:href="@{/so/confirm(soId=${so.id})}" class="btn btn-success">Create Shipment </a>
+
+            </span>
         </div>
 
     </div>
