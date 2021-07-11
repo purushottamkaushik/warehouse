@@ -8,12 +8,14 @@ import com.warehouse.service.IPartService;
 import com.warehouse.service.ISaleOrderService;
 import com.warehouse.service.IShipmentTypeService;
 import com.warehouse.service.IWhUserTypeService;
+import org.dom4j.rule.Mode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 import java.util.Optional;
@@ -248,9 +250,21 @@ public class SaleOrderController {
     }
 
 
-    @GetMapping("/printinvoice")
-    public void printInvoice(@RequestParam Integer soId) {
-        System.out.println("HELLO");
+    @GetMapping("/invoice")
+    public ModelAndView printInvoice(@RequestParam Integer soId) {
+        ModelAndView m = new ModelAndView();
+
+        try{
+            LOGGER.info("Entered Into Sale Order Print Invoice Method ");
+            m.setView(new CustomerInvoicePdfView());
+            m.addObject("so" , saleOrderService.getOneSaleOrder(soId));
+            m.addObject("list",saleOrderService.getSaleOrderDetailsBySoId(soId));
+
+            LOGGER.debug("Exiting from Sale Order Customer Invoice method ");
+        } catch (Exception e) {
+            LOGGER.error("Could not print invoice : {} " , e.getMessage());
+        }
+        return m;
     }
 
     @GetMapping("/cancel")

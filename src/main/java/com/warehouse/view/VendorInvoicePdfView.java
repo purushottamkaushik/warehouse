@@ -112,6 +112,12 @@ public class VendorInvoicePdfView extends AbstractPdfView {
         }
         document.add(child);
 
+        String totalValueText = "Total Cost is " + finalCost + " Rs";
+        Paragraph totalValParagraph = new Paragraph(totalValueText );
+        totalValParagraph.setAlignment(Element.ALIGN_RIGHT);
+        totalValParagraph.setIndentationRight(0.25f);
+        document.add(totalValParagraph);
+
         /***
          * Description
          *  */
