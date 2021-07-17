@@ -5,6 +5,7 @@ import com.warehouse.model.SaleOrder;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface ISaleOrderService {
@@ -43,4 +44,6 @@ public interface ISaleOrderService {
     void deleteSaleDtlById(Integer dtlId);
 
     void updateSaleQuantity(Integer dtlId, Integer newValue );
+
+    Map<Integer,String > getSaleOrderIdAndCodeByStatus(String status);
 }

@@ -7,12 +7,14 @@ import com.warehouse.model.SaleOrder;
 import com.warehouse.repo.SaleDtlRepository;
 import com.warehouse.repo.SaleOrderRepository;
 import com.warehouse.service.ISaleOrderService;
+import com.warehouse.util.MyAppUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -119,5 +121,11 @@ public class SaleOrderServiceImpl implements ISaleOrderService {
     @Transactional
     public void updateSaleQuantity(Integer dtlId, Integer newValue) {
         saleDtlRepository.updateDetailQuantityById(dtlId,newValue);
+    }
+
+    @Override
+    public Map<Integer, String> getSaleOrderIdAndCodeByStatus(String status) {
+        List<Object[]> saleOrderIdAncCodeList = saleOrderRepository.getSaleOrderIdAndCodeByStatus(status);
+        return MyAppUtil.convertListToMap(saleOrderIdAncCodeList);
     }
 }
