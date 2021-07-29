@@ -23,7 +23,7 @@
                         <div class="col-4">
                             <label>Shipping Code </label>
                         </div>
-                        <div>
+                        <div class="col-4">
                             <input type="text" id="shippingCode" name="shippingCode" class="form-control">
                             <span id="shippingCodeError"></span>
                         </div>
@@ -34,7 +34,7 @@
                         <div class="col-4">
                             <label>Shipping Reference Number</label>
                         </div>
-                        <div>
+                        <div class="col-4">
                             <input type="text" id="shipRefNum" name="shipRefNum" class="form-control">
                             <span id="shipRefNumError"></span>
                         </div>
@@ -46,7 +46,7 @@
                         <div class="col-4">
                             <label>Courier Reference Number</label>
                         </div>
-                        <div>
+                        <div class="col-4">
                             <input type="text" id="courierRefNum" name="courierRefNum" class="form-control">
                             <span id="courierRefNumError"></span>
                         </div>
@@ -58,21 +58,27 @@
                         <div class="col-4">
                             <label>Contact Details </label>
                         </div>
-                        <div>
+                        <div class="col-4">
                             <input type="text" id="contactDetails" name="contactDetails" class="form-control">
                             <span id="contactDetailsError"></span>
                         </div>
 
                     </div>
 
-<!--        Sale Order Code Intergaation             -->
+                    <!--        Sale Order Code Integration             -->
                     <div class="row">
                         <div class="col-4">
                             <label>Sale Order Code </label>
                         </div>
+                        <div class="col-4">
+                            <select name="so.id" id="saleOrderCode" class="form-control">
+                                <option value="">--SELECT--</option>
+                                <option th:each="ob:${soc}" th:text="${ob.value}" th:value="${ob.key}"></option>
+                            </select>
+                        </div>
+
                         <div>
-                            <input type="text" id="contactDetails" name="contactDetails" class="form-control">
-                            <span id="contactDetailsError"></span>
+                            <span id="saleOrderCodeError"></span>
                         </div>
 
                     </div>
@@ -82,8 +88,8 @@
                         <div class="col-4">
                             <label>Description </label>
                         </div>
-                        <div>
-                            <input type="text" id="description" name="description" class="form-control">
+                        <div class="col-4">
+                            <textarea id="description" name="description" class="form-control"></textarea>
                             <span id="descriptionError"></span>
                         </div>
 
@@ -92,7 +98,7 @@
                         <div class="col-4">
                             <label>Bill To Address</label>
                         </div>
-                        <div >
+                        <div class="col-4">
                             <textarea name="billToAddress" class="form-control"></textarea>
                         </div>
                     </div>
@@ -103,13 +109,14 @@
                             <label>Shipment To Address</label>
                         </div>
 
-                        <div ><textarea name="shipToAddress" class="form-control"></textarea>
+                        <div class="col-4">
+                            <textarea name="shipToAddress" class="form-control"></textarea>
                         </div>
                     </div>
-                    <button type="submit">Create Shipping</button>
-
-
+                    <button type="submit" class="btn btn-success">Create Shipping</button>
+                </div>
             </form>
+
         </div>
 
         <div class="card-footer" th:if="${message != ''}">

@@ -33,7 +33,8 @@ public class ShippingController {
     }
 
     @GetMapping("/register")
-    public String showRegisterPage(){
+    public String showRegisterPage(Model model){
+        commonUi(model);
         return "ShippingRegisterPage";
     }
 
@@ -44,10 +45,12 @@ public class ShippingController {
             Integer id = shippingService.saveShipping(shipping);
             String message = "Shipping with id " + id + " created Successfully" ;
             model.addAttribute("message",message);
+            saleOrderService.updateSaleOrderStatus(shipping.getSo().getId(), SaleOrderStatus.SHIPPED.name());
             LOGGER.debug("Exiting from Shipping Save method " );
         } catch (Exception e) {
             LOGGER.error("Could not execute Shiipping method  : {} " + e.getMessage() );
         }
+        commonUi(model);
         return "ShippingRegisterPage";
     }
 

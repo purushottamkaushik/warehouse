@@ -1,0 +1,55 @@
+<html>
+<head>
+    <title>Uom Data Page</title>
+</head>
+<body>
+<div th:insert="fragments/commonui :: userheader"></div>
+<div th:insert="fragments/commonui :: usermenu"></div>
+
+<div class="container-fluid">
+
+    <div class="card">
+        <div class="card-header bg-info text-center text-black">
+            Shipping Data Page
+        </div>
+
+        <div class="card-body">
+<!--            <a class="btn btn-primary text-white" th:href="@{/uom/excel}">Export Excel</a>-->
+<!--            <a class="btn btn-primary text-white" th:href="@{/uom/charts}">Charts</a>-->
+<!--            <a class="btn btn-primary text-white" th:href="@{/uom/pdf}">Pdf Export</a>-->
+            <table class="table table-hover">
+                <tr>
+                    <th>ID</th>
+                    <th>Shipping Code</th>
+                    <th>Shipping Reference Number</th>
+                    <th>Contact Details</th>
+                    <th>Description</th>
+                    <th>Bill Address</th>
+                    <th>Shipping Address</th>
+                </tr>
+                <tr th:each="ob:${list}">
+                    <td th:text="${ob.id}"></td>
+                    <td th:text="${ob.shippingCode}"></td>
+                    <td th:text="${ob.shipRefNum}"></td>
+                    <td th:text="${ob.contactDetails}"></td>
+                    <td th:text="${ob.description}"></td>
+<!--                    <td th:text="${ob.so.orderCode}"></td>-->
+                    <td th:text="${ob.billToAddress}"></td>
+                    <td th:text="${ob.shipToAddress}"></td>
+<!--                    <td>-->
+<!--                        <a class="btn btn-warning" th:href="@{/grn/parts(id=${ob.id})}">View Parts</a>-->
+<!--                    </td>-->
+                </tr>
+
+            </table>
+        </div>
+        <div class="card-footer">
+            <div th:if="${message!=null}">
+                <span th:text="${message}"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

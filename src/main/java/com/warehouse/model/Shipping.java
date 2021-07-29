@@ -33,10 +33,13 @@ public class Shipping {
     @Column(name = "contact")
     private String contactDetails;
 
+
+
     // Behaves as OneToOne
     @ManyToOne
     @JoinColumn(name = "so_id_fk_col",unique = true)
     private SaleOrder so;
+
 
     @Column(  name = "ship_description_col")
     private String description;
