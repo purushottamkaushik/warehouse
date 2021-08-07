@@ -8,6 +8,7 @@ import com.warehouse.service.IShippingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -37,4 +38,16 @@ public class ShippingImpl implements IShippingService {
     public List<Shipping> getAllShippings() {
         return shippingRepository.findAll();
     }
+
+    @Transactional
+    @Override
+    public void updateShippingStatus(Integer id , String status) {
+        if (shippingDtlRepository.existsById(id) ) {
+            shippingDtlRepository.updateStatusById(id,status);
+        } else {
+            throw new ShippingNotFoundException("Shipping Detais with id {} Not Found " + id );
+        }
+    }
+
+
 }

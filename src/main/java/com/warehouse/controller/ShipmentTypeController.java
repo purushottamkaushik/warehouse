@@ -142,7 +142,6 @@ public class ShipmentTypeController {
             }
             LOG.debug("Message  {} ", message);
             LOG.info("Exit from validate Shipment Code method");
-
         } catch (Exception e) {
             LOG.error("Could not validate : {0}", e.getMessage());
         }

@@ -11,6 +11,8 @@ public interface IShippingService {
 
     List<Shipping> getAllShippings();
 
+    void updateShippingStatus(Integer id ,String status);
+
 
 
 

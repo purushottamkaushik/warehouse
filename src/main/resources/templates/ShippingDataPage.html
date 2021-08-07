@@ -24,6 +24,7 @@
                     <th>Shipping Reference Number</th>
                     <th>Contact Details</th>
                     <th>Description</th>
+                    <th>Order Code</th>
                     <th>Bill Address</th>
                     <th>Shipping Address</th>
                 </tr>
@@ -33,12 +34,12 @@
                     <td th:text="${ob.shipRefNum}"></td>
                     <td th:text="${ob.contactDetails}"></td>
                     <td th:text="${ob.description}"></td>
-<!--                    <td th:text="${ob.so.orderCode}"></td>-->
+                    <td th:text="${ob.so.orderCode}"></td>
                     <td th:text="${ob.billToAddress}"></td>
                     <td th:text="${ob.shipToAddress}"></td>
-<!--                    <td>-->
-<!--                        <a class="btn btn-warning" th:href="@{/grn/parts(id=${ob.id})}">View Parts</a>-->
-<!--                    </td>-->
+                    <td>
+                        <a class="btn btn-warning" th:href="@{/sp/parts(id=${ob.id})}">View Parts</a>
+                    </td>
                 </tr>
 
             </table>

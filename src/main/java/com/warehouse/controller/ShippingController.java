@@ -1,6 +1,7 @@
 package com.warehouse.controller;
 
 import com.warehouse.consts.SaleOrderStatus;
+import com.warehouse.consts.ShippingStatus;
 import com.warehouse.model.SaleDtl;
 import com.warehouse.model.Shipping;
 import com.warehouse.model.ShippingDtl;
@@ -92,15 +93,38 @@ public class ShippingController {
             LOGGER.info("Entered into Shipping Module Parts method");
             Shipping shipping = shippingService.getOneShipping(id);
             Set<ShippingDtl> shippingDtls = shipping.getShippingDtls();
-            model.addAttribute("shipping", shipping);
-            model.addAttribute("shipDtls", shippingDtls);
+            model.addAttribute("sp", shipping);
+            model.addAttribute("shippingDtls", shippingDtls);
             LOGGER.debug("Exiting from Shipping Module Parts Page ");
 
         } catch (Exception e) {
             LOGGER.error("Could not perform Operation : {} " , e.getMessage());
         }
-        return "ShippingPartsPage";
+        return "ShippingDataView";
     }
 
+    @GetMapping("/accept" )
+    public String acceptStatus(@RequestParam Integer shipDtlId , @RequestParam Integer shipId) {
+        try {
+            LOGGER.info("Enter into Shipping MODULE ACCEPT METHOD");
+            shippingService.updateShippingStatus(shipDtlId, ShippingStatus.ACCEPTED.name());
+            LOGGER.info("Exiting from Shipping MODULE ACCEPT METHOD");
+        } catch (Exception e) {
+            LOGGER.error("Could not perform accept Operation : {} ",e.getMessage());
+        }
+        return "redirect:parts?id="+shipId;
+    }
+
+    @GetMapping("/reject" )
+    public String rejectStatus(@RequestParam Integer shipDtlId , @RequestParam Integer shipId) {
+        try {
+            LOGGER.info("Enter into Shipping MODULE REJECT METHOD");
+            shippingService.updateShippingStatus(shipDtlId, ShippingStatus.REJECTED.name());
+            LOGGER.debug("Exiting from SHIPPING MODULE REJECT METHOD ");
+        } catch (Exception e) {
+            LOGGER.error("Could not perform Reject Operation : {} ",e.getMessage());
+        }
+        return "redirect:parts?id="+shipId;
+    }
 
 }
