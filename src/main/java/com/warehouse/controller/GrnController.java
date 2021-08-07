@@ -76,6 +76,7 @@ public class GrnController {
         grn.setGrnDetails(grnDetails);
     }
 
+
     @GetMapping("/all")
     public String getAllGrns(Model model) {
         try{
@@ -83,7 +84,6 @@ public class GrnController {
             model.addAttribute("list",grnList);
         } catch (Exception e) {
             e.printStackTrace();
-
         }
         return "GrnDataPage";
     }
@@ -110,15 +110,10 @@ public class GrnController {
         return "redirect:parts?id="+grnId;
     }
 
-
     @GetMapping("/reject")
     public String rejectStatus(@RequestParam Integer grnDetailId, @RequestParam Integer grnId) {
         grnService.updateGrnDetailsById(grnDetailId, GrnStatus.REJECTED.name());
         return "redirect:parts?id="+grnId;
     }
-
-
-
-
 
 }

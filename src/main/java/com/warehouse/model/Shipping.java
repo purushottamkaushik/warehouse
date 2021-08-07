@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -40,6 +41,9 @@ public class Shipping {
     @JoinColumn(name = "so_id_fk_col",unique = true)
     private SaleOrder so;
 
+    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JoinColumn(name = "sp_id_fk")
+    private Set<ShippingDtl> shippingDtls;
 
     @Column(  name = "ship_description_col")
     private String description;

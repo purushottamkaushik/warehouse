@@ -2,6 +2,7 @@ package com.warehouse.service.impl;
 
 import com.warehouse.customexception.ShippingNotFoundException;
 import com.warehouse.model.Shipping;
+import com.warehouse.repo.ShippingDtlRepository;
 import com.warehouse.repo.ShippingRepository;
 import com.warehouse.service.IShippingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,9 @@ public class ShippingImpl implements IShippingService {
 
     @Autowired
     private ShippingRepository shippingRepository;
+
+    @Autowired
+    private ShippingDtlRepository shippingDtlRepository;
 
     @Override
     public Integer saveShipping(Shipping shipping) {

@@ -29,7 +29,7 @@ public class Grn {
     private String description;
 
 
-    // One PurchaseOrder is connected to one GRN   1.....1 Mapping
+    // One PurchaseOrder is connected to one GRN 1.....1 Mapping
     @ManyToOne
     @JoinColumn(name = "po_id_fk_col" , unique = true)
     PurchaseOrder po;
