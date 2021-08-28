@@ -71,7 +71,7 @@ public class ShipmentTypeRestController {
          LOGGER.error("Could not fetch Shipment Types : {} ", e.getMessage());
          message = "Something went wrong please check application logs ";
       }
-
+      System.out.println("Testing commit");
       return ResponseEntity.ok(message);
    }
 
