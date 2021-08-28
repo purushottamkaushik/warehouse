@@ -1,5 +1,7 @@
 package com.warehouse.service.impl;
 
+import com.warehouse.customexception.ShipmentTypeNotFoundException;
+import com.warehouse.customexception.ShippingNotFoundException;
 import com.warehouse.model.ShipmentType;
 import com.warehouse.repo.ShipmentTypeRepository;
 import com.warehouse.service.IShipmentTypeService;
@@ -29,13 +31,12 @@ public class ShipmentTypeServiceImpl implements IShipmentTypeService {
     }
 
     @Override
-    public Boolean deleteShipType(Integer id) throws Exception {
+    public void deleteShipType(Integer id) throws Exception {
         Optional<ShipmentType> shipmentType = repo.findById(id);
         if (shipmentType.isPresent()) {
             repo.deleteById(id);
-            return true;
         } else {
-            throw new Exception("Shipment with shipment id " + id + " doesnt exist");
+            throw new ShipmentTypeNotFoundException("Shipment with shipment id " + id + " doesnt exist");
         }
 
     }
@@ -46,13 +47,20 @@ public class ShipmentTypeServiceImpl implements IShipmentTypeService {
         if (shipmentType.isPresent()) {
             return shipmentType.get();
         } else {
-            throw new Exception("Shipment with " + id + " doesnt exist ");
+            throw new ShipmentTypeNotFoundException("Shipment with " + id + " doesnt exist ");
         }
     }
 
     @Override
-    public Integer updateShipmentType(ShipmentType shipmentType) {
-        return repo.save(shipmentType).getId();
+    public void updateShipmentType(ShipmentType shipmentType) {
+        Integer id = shipmentType.getId();
+        if (!repo.existsById(id) || id == null ) {
+            throw new ShipmentTypeNotFoundException(
+                    "Shipment with " + (id!=null?id.toString():"0") + " not exist for update "
+            );
+        }else {
+            repo.save(shipmentType);
+        }
     }
 
     @Override

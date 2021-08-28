@@ -50,7 +50,13 @@ public class UomServiceImpl implements IUomService {
 
     @Override
     public void updateUom(Uom uom) {
-        repo.save(uom);
+        if (uom.getId() == null || !repo.existsById(uom.getId()))  {
+            throw new UomNotFoundException(
+               "Uom  "  + (uom==null ? "id" : uom.getId()) + " doesnt exist for update "
+            );
+        } else {
+            repo.save(uom);
+        }
     }
 
     @Override

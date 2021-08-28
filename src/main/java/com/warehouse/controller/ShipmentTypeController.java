@@ -88,9 +88,9 @@ public class ShipmentTypeController {
         String message = "";
         try {
             LOG.info("Entered into delete Shipment Type method");
-            if (service.deleteShipType(id)) {
-                message = "Shipment Type with " + id + " deleted successfully";
-            }
+            service.deleteShipType(id);
+            message = "Shipment Type with " + id + " deleted successfully";
+
             fetchAllShipmentTypes(model);
         } catch (Exception e) {
             LOG.error("{}", e.getMessage());
@@ -114,8 +114,8 @@ public class ShipmentTypeController {
         String message = "";
         try {
             LOG.info("Entered into update ShipmentType Method");
-            Integer id = service.updateShipmentType(shipmentType);
-            message = "ShipmentType with id " + id + " updated successfully";
+            service.updateShipmentType(shipmentType);
+            message = "ShipmentType with id " + shipmentType.getId() + " updated successfully";
             model.addAttribute("message", message);
             fetchAllShipmentTypes(model);
 

@@ -10,11 +10,11 @@ public interface IShipmentTypeService {
 
     List<ShipmentType> getAllShipmentType();
 
-    Boolean deleteShipType(Integer id) throws Exception;
+    void deleteShipType(Integer id) throws Exception;
 
     ShipmentType getOneShipmentType(Integer id) throws Exception;
 
-    Integer updateShipmentType(ShipmentType shipmentType);
+    void updateShipmentType(ShipmentType shipmentType);
 
     Boolean isShipmentCodeExists(String code) throws Exception;
 
