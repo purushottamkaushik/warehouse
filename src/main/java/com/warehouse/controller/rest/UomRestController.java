@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 
 @Api("Uom Rest Controller ")
@@ -35,7 +34,7 @@ public class UomRestController {
 
         try{
             Integer id = uomService.saveUom(uom);
-            return new ResponseEntity<>(id.toString() + " created Success", HttpStatus.OK);
+            return new ResponseEntity<>("Uom with id " + id.toString() + " created Success", HttpStatus.CREATED);
         } catch (Exception e) {
             LOGGER.error("Could not save : {0}",e.getMessage());
             return new ResponseEntity<>("Could not save UOM" , HttpStatus.INTERNAL_SERVER_ERROR);
@@ -47,18 +46,19 @@ public class UomRestController {
     // 2. Find One Uom
     @GetMapping("/find/{id}")
     @ApiOperation("Find one UOM by ID")
-    public ResponseEntity<Uom> getOneUomById(@PathVariable Integer id) {
-        Uom uom = null ;
-        try{
+    public ResponseEntity<?> getOneUomById(@PathVariable Integer id) {
+        Uom uom = null;
+        try {
             LOGGER.info("Into get One Uom By Id Method");
             uom = uomService.getOneUom(id);
             LOGGER.debug("Exiting from getOneUOM method : REST");
         } catch (UomNotFoundException unfe) {
-            LOGGER.error("Could not find Uom : {}" , unfe.getMessage() );
+            LOGGER.error("Could not find Uom : {}", unfe.getMessage());
 //            return new ResponseEntity<>(unfe.getMessage(),HttpStatus.OK);
-            throw  unfe;
-        } catch (Exception e ) {
-            LOGGER.error("Could not find UOM by ID : " , e.getMessage());
+            throw unfe;
+        } catch (Exception e) {
+            LOGGER.error("Could not find UOM by ID : ", e.getMessage());
+            return new ResponseEntity<>("some problem occurred please check application logs ", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return  ResponseEntity.ok(uom);
     }
@@ -66,7 +66,7 @@ public class UomRestController {
 
     // 3. Get all UOM
     @GetMapping("/all")
-    public ResponseEntity<List<Uom>> getAllUoms() {
+    public ResponseEntity<?> getAllUoms() {
         List<Uom> uoms = new ArrayList<>();
         try {
             LOGGER.info("Entered into GET ALL UOMS method ");
@@ -74,10 +74,11 @@ public class UomRestController {
 
             LOGGER.debug("Exiting from ");
         } catch (UomNotFoundException unfe) {
-            LOGGER.error("Uom not found " , unfe.getMessage());
+            LOGGER.error("Uom not found ", unfe.getMessage());
             throw unfe;
-        } catch (Exception e ) {
-            LOGGER.error("Could not get Uoms : " , e.getMessage());
+        } catch (Exception e) {
+            LOGGER.error("Could not get Uoms : ", e.getMessage());
+            return new ResponseEntity<>("some problem occurred please check application logs ", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(uoms,HttpStatus.OK);
     }
@@ -107,15 +108,15 @@ public class UomRestController {
         try {
             LOGGER.error("Entered into UOM Update method : REST ");
             uomService.updateUom(uom);
-            message = "UOM with id " + uom.getId() + " updated  Successfully" ;
+            message = "UOM with id " + uom.getId() + " updated  Successfully";
             LOGGER.debug("Exiting from UOM Update  methiod : REST ");
-        }  catch (Exception e) {
-            LOGGER.error("Could not DELETE Uom : " ,e.getMessage());
-            return new ResponseEntity<>("Something went wrong please check application logs",HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (UomNotFoundException uomNotFoundException) {
+            LOGGER.error("UOM not found ");
+            throw uomNotFoundException;
+        } catch (Exception e) {
+            LOGGER.error("Could not DELETE Uom : ", e.getMessage());
+            return new ResponseEntity<>("Something went wrong please check application logs", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return ResponseEntity.ok(message);
     }
-
-
-
 }
