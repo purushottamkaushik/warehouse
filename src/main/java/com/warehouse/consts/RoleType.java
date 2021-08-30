@@ -2,6 +2,6 @@ package com.warehouse.consts;
 
 public enum RoleType {
 
-    ADMIN , APPUSER , DEMO
+    ADMIN , APPUSER , DEMO, NOTHING
 
 }

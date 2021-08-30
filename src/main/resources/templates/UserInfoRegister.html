@@ -1,0 +1,104 @@
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <title>User Register Page </title>
+</head>
+<body>
+<div th:insert="fragments/commonui :: userheader"></div>
+<div th:insert="fragments/commonui :: usermenu"></div>
+
+<div class="container">
+    <div class="card">
+        <div class="card-header bg-primary text-white text-center">
+            User Register Page
+        </div>
+        <div class="card-body">
+            <form id="userRegisterForm" method="POST" th:action="@{/usr/save}">
+
+                <div class="row">
+                    <div class="col-4">
+                        <label for="name">Name </label>
+                    </div>
+                    <div class="col-4">
+                        <input class="form-control" id="name" name="name" type="text">
+                    </div>
+                    <div class="col-4">
+                        <span id="nameError"></span>
+                    </div>
+                </div>
+
+                <!--                Row 1 -->
+                <div class="row">
+                    <div class="col-4">
+                        <label for="username">Username</label>
+                    </div>
+                    <div class="col-4">
+                        <input class="form-control" id="username" name="username" type="text">
+                    </div>
+                    <div class="col-4">
+                        <span id="usernameError"></span>
+                    </div>
+                </div>
+<!--                Row 2   -->
+                <div class="row">
+                    <div class="col-4">
+                        <label for="email">Email</label>
+                    </div>
+                    <div class="col-4">
+                        <input class="form-control" id="email" name="email" type="text">
+                    </div>
+                    <div class="col-4">
+                        <span id="emailError"></span>
+                    </div>
+                </div>
+
+<!--                Row 3-->
+                <div class="row">
+                    <div class="col-4">
+                        <label for="password">Password</label>
+                    </div>
+                    <div class="col-4">
+                        <input type="password" class="form-control" id="password" name="password" value="****************************" readonly/>
+                    </div>
+                    <div class="col-4">
+                        <span id="passwordError"></span>
+                    </div>
+                </div>
+
+
+<!--                Row 4 -->
+                <div class="row">
+                    <div class="col-4">
+                        <label >Roles</label>
+                    </div>
+                    <div class="col-4">
+<!--                        <input type="checkbox"  name="roles" value="ADMIN"/> ADMIN-->
+<!--                        <input type="checkbox"  name="roles" value="APPUSER"/> APPUSER-->
+
+                        <select name="roles" multiple class="form-control">
+                            <option th:each="ob:${roles}"
+                                    th:value="${ob.key}"
+                                    th:text="${ob.value}"
+                            ></option>
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <span id="rolesError"></span>
+                    </div>
+                </div>
+
+
+                <input class="btn btn-success" type="submit" value="Create User ">
+            </form>
+
+        </div>
+        <div class="card-footer" th:if="${message!=null}">
+            <span th:text="${message}"></span>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/myjs/userInfo.js}" type="text/javascript">
+
+</script>
+</body>
+</html>
