@@ -3,6 +3,7 @@ package com.warehouse.controller;
 import com.warehouse.model.UserInfo;
 import com.warehouse.service.IRoleService;
 import com.warehouse.service.IUserInfoService;
+import com.warehouse.util.EmailUtil;
 import com.warehouse.util.MyAppUtil;
 import com.warehouse.util.UserInfoUtils;
 import org.slf4j.Logger;
@@ -31,6 +32,9 @@ public class UserInfoController {
     @Autowired
     private IUserInfoService userInfoService;
 
+    @Autowired
+    private EmailUtil mail;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(UserInfoController.class);
 
 
@@ -54,29 +58,28 @@ public class UserInfoController {
     public String saveUser(@ModelAttribute UserInfo userInfo, Model model ) {
         // Generate Password
         String password =MyAppUtil.genPwd();
+        System.out.println(password);
         userInfo.setPassword(password);
         userInfoService.saveUser(userInfo);
+        String text = "Your account has been created Successfully \n Email: " + userInfo.getEmail() + " password : " + password ;
+        mail.sendEmail(userInfo.getEmail(), "Account Created Successfully" ,text);
         model.addAttribute("message" ,"User with email "  + userInfo.getEmail()+ " created successfully" );
         return "UserInfoRegister";
     }
+// =======================================================================================
 
     @GetMapping("/login")
     public String showLoginPage(){
         return "UserLoginPage";
     }
 
-//    @GetMapping("/logout")
-//    public String logout(){
-//        return "UserLoginPage";
-//    }
-//
-
     @GetMapping("/setup")
-    public String doSetup(Principal p , HttpSession session) {
+    public String doSetup(Principal p , HttpSession ses) {
         String emailId = p.getName();
         UserInfo info = userInfoService.getOneUserDetailByEmailId(emailId);
-        session.setAttribute("user",info.getName());
-        session.setAttribute("isAdmin", UserInfoUtils.getUserRolesInString(info.getRoles()).contains("ADMIN"));
+        ses.setAttribute("user",info.getName());
+        ses.setAttribute("isAdmin", UserInfoUtils.getUserRolesInString(info.getRoles()).contains("ADMIN"));
+        LOGGER.info("Session Created");
         return "redirect:/uom/register";
     }
 

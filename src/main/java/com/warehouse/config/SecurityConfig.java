@@ -35,8 +35,8 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
         http
 
                 .authorizeRequests()
-                .antMatchers("/rest/**","/user/login").permitAll()
-                .antMatchers("/user/create/","/user/register").hasAuthority("ADMIN")
+                .antMatchers("/rest/**","/user/login","/user/setup").permitAll()
+                .antMatchers("/user/create/","/user/register").hasAnyAuthority("ADMIN","APPUSER")
                 .antMatchers("/uom/**","/st/**","/om/**","/wh/**","/part/**","/doc/**")
                 .hasAnyAuthority("ADMIN","APPUSER")
                 .antMatchers("/po/**","/grn/**","/so/**","/sp/**")
@@ -49,7 +49,7 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/user/login") // GET Request for showing the page
                 .loginProcessingUrl("/user/setup") // URL For Submission
-                .defaultSuccessUrl("/uom/register",true)
+                .defaultSuccessUrl("/user/setup",true)
                 .failureUrl("/user/login?error")
 
                 // Logout details
