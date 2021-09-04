@@ -1,0 +1,49 @@
+<html>
+<head>
+    <title>User Profile Page</title>
+</head>
+<body>
+<div th:insert="fragments/commonui :: userheader"></div>
+<div th:insert="fragments/commonui :: usermenu"></div>
+
+<div class="container-fluid">
+
+    <div class="card">
+        <div class="card-header bg-info text-center text-black">
+            User Profile Page
+        </div>
+
+        <div class="card-body">
+            <table class="table table-hover">
+                <tr>
+                    <th>Id</th>
+                    <td th:text="${userInfo.id}"></td>
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <td th:text="${userInfo.name}"></td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td th:text="${userInfo.email}"></td>
+                </tr>
+                <tr>
+                    <th>Password</th>
+                    <td><a href="#" class="btn-warning">Update</a></td>
+                </tr>
+                <tr>
+                    <th>Roles</th>
+                    <td th:text="${roles}"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="card-footer">
+            <div th:if="${message!=null}">
+                <span th:text="${message}"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<html>
+<head>
+    <title>Users Data Page</title>
+</head>
+<body>
+<div th:insert="fragments/commonui :: userheader"></div>
+<div th:insert="fragments/commonui :: usermenu"></div>
+
+<div class="container-fluid">
+
+    <div class="card">
+        <div class="card-header bg-info text-center text-black">
+            Users Data Page
+        </div>
+
+        <div class="card-body">
+            <table class="table table-hover">
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th>Operations</th>
+                </tr>
+                <tr th:each="ob:${list}">
+                    <td th:text="${ob.id}"></td>
+                    <td th:text="${ob.name}"></td>
+                    <td th:text="${ob.email}"></td>
+                    <td th:text="${ob.mode}"></td>
+                    <td th:if="${session.user!=ob.name}">
+                        <a class="btn btn-warning" th:if="${ob.mode.name() == 'DISABLED'}" th:href="@{/user/updateuserstatus(id=${ob.id},status='ENABLED')}">ENABLE</a>
+                        <a class="btn btn-danger" th:if="${ob.mode.name() == 'ENABLED'}" th:href="@{/user/updateuserstatus(id=${ob.id},status='DISABLED')}">DISABLE</a>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+        <div class="card-footer">
+            <div th:if="${message!=null}">
+                <span th:text="${message}"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

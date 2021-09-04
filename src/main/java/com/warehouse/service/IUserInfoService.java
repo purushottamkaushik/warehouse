@@ -12,4 +12,6 @@ public interface IUserInfoService {
     List<UserInfo> getAllUsers();
 
     UserInfo getOneUserDetailByEmailId(String email);
+
+    void updateUserStatus(Integer id , String status);
 }
