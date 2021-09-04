@@ -65,6 +65,18 @@ public class UserInfoServeiceImpl implements IUserInfoService, UserDetailsServic
     }
 
     @Override
+    @Transactional
+    public void updateUserPassword(String email, String password) {
+        Boolean existsByEmail = userInfoRepository.existsByEmail(email);
+
+        if (existsByEmail) {
+            userInfoRepository.updateUserPassword(email, password);
+        } else {
+            throw new UsernameNotFoundException("User with email " + email + " doesnt exists");
+        }
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<UserInfo> opt = userInfoRepository.findByEmail(username);
 //
@@ -85,7 +97,7 @@ public class UserInfoServeiceImpl implements IUserInfoService, UserDetailsServic
 //        }
 
 
-        if (!opt.isPresent() || opt.get().getMode().name().equals("DISABLED")) {  //  If user not present throw user not found exception
+        if (!opt.isPresent() ||  opt.get().getMode().name().equals("DISABLED")) {  //  If user not present throw user not found exception
             throw new UsernameNotFoundException("User Doesnt exists or disabled ");
         } else {
             // 1 . Get the user

@@ -10,8 +10,10 @@ import org.dom4j.rule.Mode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -37,6 +39,9 @@ public class UserInfoController {
 
     @Autowired
     private EmailUtil mail;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserInfoController.class);
 
@@ -76,11 +81,16 @@ public class UserInfoController {
         return "UserLoginPage";
     }
 
+    @GetMapping("/forgotpassword")
+    public String forgotPassword(){
+        return "ForgotPassword";
+    }
+
     @GetMapping("/setup")
     public String doSetup(Principal p , HttpSession ses) {
         String emailId = p.getName();
         UserInfo info = userInfoService.getOneUserDetailByEmailId(emailId);
-        ses.setAttribute("fullinfo",info);
+        ses.setAttribute("info",info);
         ses.setAttribute("user",info.getName());
         ses.setAttribute("isAdmin", UserInfoUtils.getUserRolesInString(info.getRoles()).contains("ADMIN"));
         LOGGER.info("Session Created");
@@ -103,11 +113,39 @@ public class UserInfoController {
 
     @GetMapping("/profile")
     public String showUserProfile(HttpSession session , Model model ) {
-        UserInfo info = (UserInfo) session.getAttribute("fullinfo");
+        UserInfo info = (UserInfo) session.getAttribute("info");
         String roles = UserInfoUtils.getUserRolesInString(info.getRoles()).toString();
         model.addAttribute("userInfo" ,info);
         model.addAttribute("roles" ,roles);
         return "UserInfoProfilePage";
+    }
+
+
+    @PostMapping("/genpassword")
+    public String generatePassword(@RequestParam String email, Model model) {
+        UserInfo userInfo = userInfoService.getOneUserDetailByEmailId(email);
+        String password =  MyAppUtil.genPwd();
+        String encodedpassword = passwordEncoder.encode(password);
+        userInfoService.updateUserPassword(email,encodedpassword);
+        String text = "Hello  " + userInfo.getName()  + "  Your password is  : " + password;
+        mail.sendEmail(email, " NEW PASSWORD GENERATED "  , text);
+        model.addAttribute("message" , "Password Generated and sent on mail");
+        return "redirect:forgotpassword";
+    }
+    @GetMapping("/showPasswordPage")
+    public String showPasswordPage() {
+        return "UpdatePasswordPage";
+    }
+
+    @PostMapping("/updatepassword")
+    public String updatePassword(HttpSession session , @RequestParam String password , Model model) {
+        UserInfo info = (UserInfo) session.getAttribute("info");
+        String email = info.getEmail();
+        password = password.replaceAll(",","");
+        String encoded = passwordEncoder.encode(password);
+        userInfoService.updateUserPassword(email,encoded);
+        model.addAttribute("message","Password Updated Successfully");
+        return "redirect:profile";
     }
 
 

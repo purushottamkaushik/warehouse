@@ -14,4 +14,6 @@ public interface IUserInfoService {
     UserInfo getOneUserDetailByEmailId(String email);
 
     void updateUserStatus(Integer id , String status);
+
+    void updateUserPassword(String email , String password);
 }

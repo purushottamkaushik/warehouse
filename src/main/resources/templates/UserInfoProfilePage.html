@@ -14,28 +14,30 @@
         </div>
 
         <div class="card-body">
-            <table class="table table-hover">
-                <tr>
-                    <th>Id</th>
-                    <td th:text="${userInfo.id}"></td>
-                </tr>
-                <tr>
-                    <th>Name</th>
-                    <td th:text="${userInfo.name}"></td>
-                </tr>
-                <tr>
-                    <th>Email</th>
-                    <td th:text="${userInfo.email}"></td>
-                </tr>
-                <tr>
-                    <th>Password</th>
-                    <td><a href="#" class="btn-warning">Update</a></td>
-                </tr>
-                <tr>
-                    <th>Roles</th>
-                    <td th:text="${roles}"></td>
-                </tr>
-            </table>
+            <form method="post" th:action="@{/user/updatepassword}">
+                <table class="table table-hover">
+                    <tr>
+                        <th>Id</th>
+                        <td th:text="${userInfo.id}"></td>
+                    </tr>
+                    <tr>
+                        <th>Name</th>
+                        <td th:text="${userInfo.name}"></td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td th:text="${userInfo.email}"></td>
+                    </tr>
+                    <tr>
+                        <th>Password</th>
+                        <td><a th:href="@{/user/showPasswordPage}" class="btn-warning">Update</a></td>
+                    </tr>
+                    <tr>
+                        <th>Roles</th>
+                        <td th:text="${roles}"></td>
+                    </tr>
+                </table>
+            </form>
         </div>
         <div class="card-footer">
             <div th:if="${message!=null}">

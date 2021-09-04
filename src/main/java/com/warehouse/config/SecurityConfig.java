@@ -33,15 +33,13 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
         // authorization
         http
-
                 .authorizeRequests()
                 .antMatchers("/rest/**","/user/login","/user/setup").permitAll()
                 .antMatchers("/user/create/","/user/register").hasAnyAuthority("ADMIN","APPUSER")
-                .antMatchers("/uom/**","/st/**","/om/**","/wh/**","/part/**","/doc/**")
-                .hasAnyAuthority("ADMIN","APPUSER")
-                .antMatchers("/po/**","/grn/**","/so/**","/sp/**")
-                .hasAuthority("APPUSER")
-                .antMatchers("/user/**").hasAuthority("ADMIN")
+                .antMatchers("/uom/**","/st/**","/om/**","/wh/**","/part/**","/doc/**").hasAnyAuthority("ADMIN","APPUSER")
+                .antMatchers("/po/**","/grn/**","/so/**","/sp/**").hasAuthority("APPUSER")
+                .antMatchers("/user/profile","/user/updatepassword").authenticated()
+                .antMatchers("/user/forgotpassword","/user/genpassword").permitAll()
                 .anyRequest().authenticated()
 
                 // login details
