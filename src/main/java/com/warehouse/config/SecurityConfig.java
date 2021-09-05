@@ -35,9 +35,9 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/rest/**","/user/login","/user/setup").permitAll()
-                .antMatchers("/user/create/","/user/register").hasAnyAuthority("ADMIN","APPUSER")
-                .antMatchers("/uom/**","/st/**","/om/**","/wh/**","/part/**","/doc/**").hasAnyAuthority("ADMIN","APPUSER")
-                .antMatchers("/po/**","/grn/**","/so/**","/sp/**").hasAuthority("APPUSER")
+                .antMatchers("/user/create/","/user/register").hasAnyAuthority("ADMIN")
+                .antMatchers("/uom/**","/st/**","/om/**","/wh/**","/part/**","/doc/**").hasAuthority("ADMIN")
+                .antMatchers("/po/**","/grn/**","/so/**","/sp/**").hasAnyAuthority("ADMIN","APPUSER")
                 .antMatchers("/user/profile","/user/updatepassword").authenticated()
                 .antMatchers("/user/forgotpassword","/user/genpassword").permitAll()
                 .anyRequest().authenticated()
@@ -58,8 +58,6 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
                 // Exceptipn Details
                 .and()
                 .exceptionHandling()
-                .accessDeniedPage("/user/denied")
-
-        ;
+                .accessDeniedPage("/user/denied");
     }
 }
