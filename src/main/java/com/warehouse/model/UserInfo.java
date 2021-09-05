@@ -31,5 +31,7 @@ public class UserInfo {
     @ManyToMany(fetch = FetchType.EAGER )
     private Set<Role> roles;
 
+    @Column(name = "otp")
+    private  Integer otp;
 
 }

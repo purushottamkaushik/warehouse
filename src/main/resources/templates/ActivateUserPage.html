@@ -1,0 +1,57 @@
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <title>Activate User Page  </title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+
+<div class="container">
+    <div class="card">
+        <div class="card-header bg-primary text-white text-center">
+            Self Activate User
+        </div>
+        <div class="card-body">
+            <form id="selfactivateForm" method="POST" th:action="@{/user/activate}">
+
+                <div class="row">
+                    <div class="col-4">
+                        <label for="email">Email</label>
+                    </div>
+                    <div class="col-4">
+                        <input class="form-control" id="email" name="email" type="email">
+                    </div>
+                    <div class="col-4">
+                        <span id="emailError"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <label for="otp">OTP</label>
+                    </div>
+                    <div class="col-4">
+                        <input class="form-control" id="otp" name="otp" type="text">
+                    </div>
+                    <div class="col-4">
+                        <span id="otpError"></span>
+                    </div>
+                </div>
+                <input class="btn btn-success" type="submit" value="Generate Password">
+            </form>
+
+        </div>
+        <div class="card-footer" th:if="${message!=null}">
+            <span th:text="${message}"></span>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/myjs/selfactivate.js}" type="text/javascript">
+
+</script>
+</body>
+</html>

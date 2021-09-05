@@ -34,10 +34,10 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
         // authorization
         http
                 .authorizeRequests()
-                .antMatchers("/rest/**","/user/login","/user/setup").permitAll()
+                .antMatchers("/rest/**","/user/login","/user/setup","/user/selfactivate","/user/activate").permitAll()
                 .antMatchers("/user/create/","/user/register").hasAnyAuthority("ADMIN")
-                .antMatchers("/uom/**","/st/**","/om/**","/wh/**","/part/**","/doc/**").hasAuthority("ADMIN")
-                .antMatchers("/po/**","/grn/**","/so/**","/sp/**").hasAnyAuthority("ADMIN","APPUSER")
+                .antMatchers("/uom/**","/st/**","/om/**","/wh/**","/part/**","/doc/**").hasAnyAuthority("ADMIN","APPUSER")
+                .antMatchers("/po/**","/grn/**","/so/**","/sp/**").hasAnyAuthority("ADMIN")
                 .antMatchers("/user/profile","/user/updatepassword").authenticated()
                 .antMatchers("/user/forgotpassword","/user/genpassword").permitAll()
                 .anyRequest().authenticated()

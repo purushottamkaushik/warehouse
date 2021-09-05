@@ -1,6 +1,7 @@
 package com.warehouse.service.impl;
 
 import com.warehouse.consts.UserMode;
+import com.warehouse.customexception.InvalidOtpFoundException;
 import com.warehouse.model.UserInfo;
 import com.warehouse.repo.UserInfoRepository;
 import com.warehouse.service.IUserInfoService;
@@ -73,6 +74,32 @@ public class UserInfoServeiceImpl implements IUserInfoService, UserDetailsServic
             userInfoRepository.updateUserPassword(email, password);
         } else {
             throw new UsernameNotFoundException("User with email " + email + " doesnt exists");
+        }
+    }
+
+    @Override
+    public Integer getOtpUsingEmail(String email) {
+        boolean exists = userInfoRepository.existsByEmail(email);
+        if (exists) {
+           return userInfoRepository.getOtpByEmail(email);
+        } else {
+            throw  new UsernameNotFoundException("User with email  " + email + " not found ");
+        }
+    }
+
+    @Transactional
+    @Override
+    public void activateUser(String email, Integer otp) {
+
+        if (userInfoRepository.existsByEmail(email).booleanValue()) {
+            Integer otpDb = userInfoRepository.getOtpByEmail(email);
+            if (otpDb.intValue() == otp.intValue()) {
+                userInfoRepository.updateUserStatusByEmail(email,UserMode.valueOf("ENABLED"));
+            } else {
+                throw new InvalidOtpFoundException("Invalid OTP Found");
+            }
+        } else {
+            throw new UsernameNotFoundException("User with email " + email+ " not exists " );
         }
     }
 

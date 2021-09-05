@@ -1,9 +1,6 @@
 package com.warehouse.util;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class MyAppUtil {
     public static Map<Integer,String> convertListToMap(List<Object[]> objectList) {
@@ -19,5 +16,11 @@ public class MyAppUtil {
                 .toString()
                 .replaceAll("-","")
                 .substring(0,10);
+    }
+
+    public static Integer generateOtp() {
+        Random random = new Random();
+        int number = random.nextInt(999999);
+        return new Integer(String.format("%06d",number));
     }
 }

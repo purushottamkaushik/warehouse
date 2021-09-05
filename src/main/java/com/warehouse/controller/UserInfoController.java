@@ -66,10 +66,13 @@ public class UserInfoController {
     public String saveUser(@ModelAttribute UserInfo userInfo, Model model ) {
         // Generate Password
         String password =MyAppUtil.genPwd();
+        Integer otp = MyAppUtil.generateOtp();
         System.out.println(password);
+        System.out.println("OTP : " +  otp);
         userInfo.setPassword(password);
+        userInfo.setOtp(otp);
         userInfoService.saveUser(userInfo);
-        String text = "Your account has been created Successfully \n Email: " + userInfo.getEmail() + " password : " + password ;
+        String text = "Your account has been created Successfully \n Email: " + userInfo.getEmail() + " password : " + password  + ", otp :" + otp;
         mail.sendEmail(userInfo.getEmail(), "Account Created Successfully" ,text);
         model.addAttribute("message" ,"User with email "  + userInfo.getEmail()+ " created successfully" );
         return "UserInfoRegister";
@@ -146,6 +149,18 @@ public class UserInfoController {
         userInfoService.updateUserPassword(email,encoded);
         model.addAttribute("message","Password Updated Successfully");
         return "redirect:profile";
+    }
+
+    @GetMapping("/selfactivate")
+    public String showActivateUserPage( ) {
+        return "ActivateUserPage";
+    }
+
+    @PostMapping("/activate")
+    public String activateUser(@RequestParam String email , @RequestParam Integer otp , Model model) {
+        userInfoService.activateUser(email,otp);
+        model.addAttribute("message","User Activated Successfully , Can login now ");
+        return "ActivateUserPage";
     }
 
 

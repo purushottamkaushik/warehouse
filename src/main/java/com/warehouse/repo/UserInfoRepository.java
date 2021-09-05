@@ -19,6 +19,13 @@ public interface UserInfoRepository extends JpaRepository<UserInfo, Integer> {
     void updateUserStatus(Integer id , UserMode status );
 
     @Modifying
+    @Query("update  UserInfo SET mode=:status where email=:email")
+    void updateUserStatusByEmail(String email , UserMode status );
+
+    @Modifying
     @Query("UPDATE UserInfo SET password=:password  where email=:email")
     void updateUserPassword(String email , String password);
+
+    @Query("SELECT otp from UserInfo WHERE email=:email")
+    Integer getOtpByEmail(String email);
 }
